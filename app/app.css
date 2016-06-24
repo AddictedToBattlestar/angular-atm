@@ -1,28 +1,28 @@
-.top-panel {
+.atm-panel {
   display: flex;
   flex-flow: row nowrap;
-  height: 20em;
-  border: 1px solid #000;
+  justify-content: flex-start;
 }
-.top-panel .top-left-panel,
-.top-panel .top-right-panel {
-  border: 1px solid #000;
+.atm-panel .left-panel,
+.atm-panel .right-panel {
+  margin-left: 2em;
 }
-.top-panel .top-left-panel {
+.atm-panel .left-panel {
   order: 1;
-  flex-basis: 70%;
+  flex-basis: 38em;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  margin-top: 1em;
 }
-.top-panel .top-left-panel .atm-display-buttons-left,
-.top-panel .top-left-panel .atm-display,
-.top-panel .top-left-panel .atm-display-buttons-right {
-  border: 1px solid #000;
+.atm-panel .left-panel .atm-display-buttons-left,
+.atm-panel .left-panel .atm-display,
+.atm-panel .left-panel .atm-display-buttons-right {
+  border: 1px solid black;
   height: 18em;
 }
-.top-panel .top-left-panel .atm-display-buttons-left {
+.atm-panel .left-panel .atm-display-buttons-left {
   order: 1;
   flex-basis: 4em;
   display: flex;
@@ -30,19 +30,19 @@
   justify-content: flex-end;
   align-items: center;
 }
-.top-panel .top-left-panel .atm-display-buttons-left .atm-display-button {
+.atm-panel .left-panel .atm-display-buttons-left .atm-display-button {
   flex-basis: 2em;
   width: 2em;
   margin-bottom: 1em;
-  border: 1px solid #000;
-  background-color: #C0C0C0;
+  border: 1px solid black;
+  background-color: #BBDEFB;
 }
-.top-panel .top-left-panel .atm-display {
+.atm-panel .left-panel .atm-display {
   order: 2;
-  flex-basis: 70%;
-  background-color: #C0C0C0;
+  flex-basis: 30em;
+  background-color: #BBDEFB;
 }
-.top-panel .top-left-panel .atm-display-buttons-right {
+.atm-panel .left-panel .atm-display-buttons-right {
   order: 3;
   flex-basis: 4em;
   display: flex;
@@ -50,55 +50,46 @@
   justify-content: flex-end;
   align-items: center;
 }
-.top-panel .top-left-panel .atm-display-buttons-right .atm-display-button {
+.atm-panel .left-panel .atm-display-buttons-right .atm-display-button {
   flex-basis: 2em;
   width: 2em;
   margin-bottom: 1em;
-  border: 1px solid #000;
-  background-color: #C0C0C0;
+  border: 1px solid black;
+  background-color: #BBDEFB;
 }
-.top-panel .top-right-panel {
+.atm-panel .right-panel {
   order: 2;
-  flex-basis: 30%;
+  flex-basis: 20em;
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
-}
-.top-panel .top-right-panel .receipt-dispenser,
-.top-panel .top-right-panel .card-slot {
-  border: 1px solid #000;
-  background-color: #C0C0C0;
   margin-top: 1em;
 }
-.top-panel .top-right-panel .receipt-dispenser {
-  order: 1;
-  flex-basis: .5em;
-  width: 80%;
+.atm-panel .right-panel .receipt-dispenser,
+.atm-panel .right-panel .card-slot {
+  border: 1px solid black;
+  background-color: #BBDEFB;
+  width: 100%;
 }
-.top-panel .top-right-panel .card-slot {
+.atm-panel .right-panel .receipt-dispenser {
+  order: 1;
+  flex-basis: 1.5em;
+  margin-bottom: 1em;
+}
+.atm-panel .right-panel .card-slot {
   order: 2;
+  flex-basis: 8em;
+}
+.atm-panel .left-panel .cash-dispenser {
+  border: 1px solid black;
+  background-color: #BBDEFB;
+  height: 3em;
+  flex-basis: 20em;
+}
+.atm-panel .right-panel .deposit-slot {
+  border: 1px solid black;
+  background-color: #BBDEFB;
+  width: 100%;
   flex-basis: 3em;
-  width: 80%;
-}
-.bottom-panel {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-  align-items: center;
-  border: 1px solid #000;
-  height: 6em;
-}
-.bottom-panel .cash-dispenser,
-.bottom-panel .deposit-slot {
-  border: 1px solid #000;
-  background-color: #C0C0C0;
-  height: 4em;
-  flex-basis: 30%;
-}
-.bottom-panel .cash-dispenser {
-  order: 1;
-}
-.bottom-panel .deposit-slot {
-  order: 2;
 }
