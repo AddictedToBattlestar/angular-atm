@@ -1,5 +1,5 @@
 @control-grey: #9E9E9E;
-@light-grey: #BDBDBD;
+@light-grey: #E0E0E0;
 @light-blue: #BBDEFB;
 
 // Presentation
@@ -10,8 +10,9 @@
   background-color: @light-blue;
   border: 1px solid black;
 }
-.atm-display-button {
-  background-color: white;
+.atm-numeric-button,
+.keypad {
+  background-color: @light-grey;
   border: 1px solid black;
 }
 .atm-control {
@@ -20,7 +21,7 @@
     background-color: white;
   }
 }
-.atm-display-button input[type="button"] {
+.atm-numeric-button input[type="button"] {
   background-color: white;
 }
 
@@ -34,23 +35,23 @@
   }
   .left-panel {
     order: 1;
-    flex-basis: 38em;
+    flex-basis: 40em;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     align-items: flex-start;
     margin-top: 1em;
-    .atm-display-buttons-left, .atm-display, .atm-display-buttons-right {
+    .atm-numeric-buttons-left, .atm-display, .atm-numeric-buttons-right {
       height: 18em;
     }
-    .atm-display-buttons-left {
+    .atm-numeric-buttons-left {
       order: 1;
-      flex-basis: 4em;
+      flex-basis: 4.5em;
       display: flex;
       flex-flow: column nowrap;
       justify-content: flex-end;
       align-items: center;
-      .atm-display-button {
+      .atm-numeric-button {
         margin-bottom: 1em;
       }
     }
@@ -58,14 +59,14 @@
       order: 2;
       flex-basis: 30em;
     }
-    .atm-display-buttons-right {
+    .atm-numeric-buttons-right {
       order: 3;
-      flex-basis: 4em;
+      flex-basis: 4.5em;
       display: flex;
       flex-flow: column nowrap;
       justify-content: flex-end;
       align-items: center;
-      .atm-display-button {
+      .atm-numeric-button {
         margin-bottom: 1em;
       }
     }
@@ -110,14 +111,36 @@
   }
  }
 
-.atm-display-button {
-  height: 2em;
-  width: 2em;
+.atm-panel:nth-child(3) {
+  .keypad {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 10em;
+    flex-basis: 10em;
+    margin-bottom: 1em;
+    .number-pad {
+      flex-basis: 10em;
+      display:flex;
+      flex-flow: column nowrap;
+      .number-pad-row {
+        display: flex;
+        flex-flow: row nowrap;
+      }
+    }
+    .number-pad-actions {
+
+    }
+  }
+}
+
+.atm-numeric-button {
+  height: 2.2em;
+  width: 2.2em;
   input[type="button"] {
     display: block;
     margin: 0.1em auto 0;
-    height: 1.8em;
-    width: 1.8em;
+    height: 2em;
+    width: 2em;
   }
 }
 
