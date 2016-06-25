@@ -115,12 +115,9 @@
 .atm-panel:nth-child(3) .keypad {
   display: flex;
   flex-flow: row nowrap;
-  height: 10em;
-  flex-basis: 12em;
   margin-bottom: 1em;
 }
 .atm-panel:nth-child(3) .keypad .number-pad {
-  flex-basis: 10em;
   display: flex;
   flex-flow: column nowrap;
 }
