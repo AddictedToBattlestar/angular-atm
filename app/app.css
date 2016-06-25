@@ -1,4 +1,23 @@
 .atm-panel {
+  background-color: #9E9E9E;
+}
+.atm-display {
+  background-color: #BBDEFB;
+  border: 1px solid black;
+}
+.atm-display-button,
+.receipt-dispenser,
+.card-slot,
+.cash-dispenser,
+.deposit-slot {
+  background-color: white;
+  border: 1px solid black;
+  color: #BDBDBD;
+}
+.atm-display-button input[type="button"] {
+  background-color: white;
+}
+.atm-panel {
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
@@ -19,7 +38,6 @@
 .atm-panel .left-panel .atm-display-buttons-left,
 .atm-panel .left-panel .atm-display,
 .atm-panel .left-panel .atm-display-buttons-right {
-  border: 1px solid black;
   height: 18em;
 }
 .atm-panel .left-panel .atm-display-buttons-left {
@@ -31,16 +49,11 @@
   align-items: center;
 }
 .atm-panel .left-panel .atm-display-buttons-left .atm-display-button {
-  flex-basis: 2em;
-  width: 2em;
   margin-bottom: 1em;
-  border: 1px solid black;
-  background-color: #BBDEFB;
 }
 .atm-panel .left-panel .atm-display {
   order: 2;
   flex-basis: 30em;
-  background-color: #BBDEFB;
 }
 .atm-panel .left-panel .atm-display-buttons-right {
   order: 3;
@@ -51,11 +64,7 @@
   align-items: center;
 }
 .atm-panel .left-panel .atm-display-buttons-right .atm-display-button {
-  flex-basis: 2em;
-  width: 2em;
   margin-bottom: 1em;
-  border: 1px solid black;
-  background-color: #BBDEFB;
 }
 .atm-panel .right-panel {
   order: 2;
@@ -65,11 +74,10 @@
   justify-content: flex-start;
   align-items: center;
   margin-top: 1em;
+  margin-right: 1em;
 }
 .atm-panel .right-panel .receipt-dispenser,
 .atm-panel .right-panel .card-slot {
-  border: 1px solid black;
-  background-color: #BBDEFB;
   width: 100%;
 }
 .atm-panel .right-panel .receipt-dispenser {
@@ -81,15 +89,24 @@
   order: 2;
   flex-basis: 8em;
 }
-.atm-panel .left-panel .cash-dispenser {
-  border: 1px solid black;
-  background-color: #BBDEFB;
+.atm-panel:nth-child(2) {
+  padding-bottom: 1em;
+}
+.atm-panel:nth-child(2) .left-panel .cash-dispenser {
   height: 3em;
   flex-basis: 20em;
 }
-.atm-panel .right-panel .deposit-slot {
-  border: 1px solid black;
-  background-color: #BBDEFB;
+.atm-panel:nth-child(2) .right-panel .deposit-slot {
   width: 100%;
   flex-basis: 3em;
+}
+.atm-display-button {
+  height: 2em;
+  width: 2em;
+}
+.atm-display-button input[type="button"] {
+  display: block;
+  margin: 0.1em auto 0;
+  height: 1.8em;
+  width: 1.8em;
 }

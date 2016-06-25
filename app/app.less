@@ -1,4 +1,5 @@
 @control-grey: #9E9E9E;
+@light-grey: #BDBDBD;
 @light-blue: #BBDEFB;
 
 // Presentation
@@ -16,6 +17,10 @@
 .deposit-slot {
   background-color: white;
   border: 1px solid black;
+  color: @light-grey;
+}
+.atm-display-button input[type="button"] {
+  background-color: white;
 }
 
 // Structure
@@ -45,8 +50,6 @@
       justify-content: flex-end;
       align-items: center;
       .atm-display-button {
-        flex-basis: 2em;
-        width: 2em;
         margin-bottom: 1em;
       }
     }
@@ -62,8 +65,6 @@
       justify-content: flex-end;
       align-items: center;
       .atm-display-button {
-        flex-basis: 2em;
-        width: 2em;
         margin-bottom: 1em;
       }
     }
@@ -107,3 +108,14 @@
     }
   }
  }
+
+.atm-display-button {
+  height: 2em;
+  width: 2em;
+  input[type="button"] {
+    display: block;
+    margin: 0.1em auto 0;
+    height: 1.8em;
+    width: 1.8em;
+  }
+}
