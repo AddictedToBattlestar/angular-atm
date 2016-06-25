@@ -1,8 +1,11 @@
 @control-grey: #9E9E9E;
 @light-grey: #E0E0E0;
 @light-blue: #BBDEFB;
+@red: #F44336;
+@yellow: #FFEB3B;
+@green: #4CAF50;
 
-// Presentation
+  // Presentation
 .atm-panel {
   background-color: @control-grey;
 }
@@ -23,6 +26,18 @@
 }
 .atm-numeric-button input[type="button"] {
   background-color: white;
+}
+.atm-button {
+  border: 1px solid black;
+}
+#cancelButton {
+  background-color: @red;
+}
+#clearButton {
+  background-color: @yellow;
+}
+#enterButton {
+  background-color: @green;
 }
 
 // Placement
@@ -116,7 +131,7 @@
     display: flex;
     flex-flow: row nowrap;
     height: 10em;
-    flex-basis: 10em;
+    flex-basis: 12em;
     margin-bottom: 1em;
     .number-pad {
       flex-basis: 10em;
@@ -141,6 +156,17 @@
     margin: 0.1em auto 0;
     height: 2em;
     width: 2em;
+  }
+}
+
+.atm-button {
+  height: 2.2em;
+  width: 5em;
+  input[type="button"] {
+    display: block;
+    margin: 0.1em auto 0;
+    height: 2em;
+    width: 4.8em;
   }
 }
 
