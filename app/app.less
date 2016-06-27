@@ -59,6 +59,11 @@
     .atm-numeric-buttons-left, .atm-display, .atm-numeric-buttons-right {
       height: 18em;
     }
+    .atm-numeric-buttons-left, .atm-numeric-buttons-right {
+      .atm-numeric-button {
+        margin-bottom: 1em;
+      }
+    }
     .atm-numeric-buttons-left {
       order: 1;
       flex-basis: 4.5em;
@@ -66,13 +71,24 @@
       flex-flow: column nowrap;
       justify-content: flex-end;
       align-items: center;
-      .atm-numeric-button {
-        margin-bottom: 1em;
-      }
     }
     .atm-display {
       order: 2;
       flex-basis: 30em;
+
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: flex-end;
+      align-items: flex-start;
+      .atm-display-line {
+        margin-bottom: 1.1em;
+        height: 2.2em;
+        display: table;
+        span {
+          display: table-cell;
+          vertical-align: middle;
+        }
+      }
     }
     .atm-numeric-buttons-right {
       order: 3;
@@ -81,9 +97,6 @@
       flex-flow: column nowrap;
       justify-content: flex-end;
       align-items: center;
-      .atm-numeric-button {
-        margin-bottom: 1em;
-      }
     }
   }
   .right-panel {

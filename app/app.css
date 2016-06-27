@@ -52,6 +52,10 @@
 .atm-panel .left-panel .atm-numeric-buttons-right {
   height: 18em;
 }
+.atm-panel .left-panel .atm-numeric-buttons-left .atm-numeric-button,
+.atm-panel .left-panel .atm-numeric-buttons-right .atm-numeric-button {
+  margin-bottom: 1em;
+}
 .atm-panel .left-panel .atm-numeric-buttons-left {
   order: 1;
   flex-basis: 4.5em;
@@ -60,12 +64,22 @@
   justify-content: flex-end;
   align-items: center;
 }
-.atm-panel .left-panel .atm-numeric-buttons-left .atm-numeric-button {
-  margin-bottom: 1em;
-}
 .atm-panel .left-panel .atm-display {
   order: 2;
   flex-basis: 30em;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+.atm-panel .left-panel .atm-display .atm-display-line {
+  margin-bottom: 1.1em;
+  height: 2.2em;
+  display: table;
+}
+.atm-panel .left-panel .atm-display .atm-display-line span {
+  display: table-cell;
+  vertical-align: middle;
 }
 .atm-panel .left-panel .atm-numeric-buttons-right {
   order: 3;
@@ -74,9 +88,6 @@
   flex-flow: column nowrap;
   justify-content: flex-end;
   align-items: center;
-}
-.atm-panel .left-panel .atm-numeric-buttons-right .atm-numeric-button {
-  margin-bottom: 1em;
 }
 .atm-panel .right-panel {
   order: 2;
