@@ -116,12 +116,18 @@
     }
     .receipt-dispenser {
       order: 1;
-      flex-basis: 2.5em;
+      flex-basis: 3em;
       margin-bottom: 1em;
     }
     .card-slot {
       order: 2;
-      flex-basis: 8em;
+      flex-basis: 8.4em;
+      div:nth-child(2) {
+      }
+      #insert-atm-card-label {
+        display: block;
+        margin: auto;
+      }
     }
   }
 }
@@ -198,4 +204,9 @@
 #atm-card {
   height: 119px;
   width: 170px;
+}
+
+#insert-atm-card-label {
+  height: 86px;
+  width: 86px;
 }
