@@ -8,7 +8,8 @@ component('atmDisplay', {
         var self = this;
 
         $http.get('displays/displays.json').then(function(response) {
-            self.displays = response.data;
+            self.availableDisplays = response.data;
+            self.currentDisplay = response.data["welcome"];
         });
     }
 });
