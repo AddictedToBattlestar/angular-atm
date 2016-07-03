@@ -22,9 +22,11 @@ angular.module('myApp.view1', ['ngRoute', 'draganddrop'])
             console.log('drop works');
         };
 
-        // Drag over handler.
-        $scope.onDragOver = function (event) {
-            console.log('drag works');
+        $scope.mouseDown = function (event) {
+            console.log('mouseDown works');
         };
 
+        $scope.mouseUp = function (event) {
+            console.log('mouseUp works');
+        };
     }]);
