@@ -10,7 +10,8 @@ angular.module('myApp.view1', ['ngRoute', 'draganddrop'])
     }])
 
     .controller('View1Ctrl', ['$scope', function ($scope) {
-        $scope.testMessage = 'this better work';
+        var selfScope = $scope;
+        $scope.isAtmSlotHighlighted = false;
 
         // Drop handler.
         $scope.onDrop = function (data, event) {
@@ -23,10 +24,12 @@ angular.module('myApp.view1', ['ngRoute', 'draganddrop'])
         };
 
         $scope.mouseDown = function (event) {
+            selfScope.isAtmSlotHighlighted = true;
             console.log('mouseDown works');
         };
 
         $scope.mouseUp = function (event) {
+            selfScope.isAtmSlotHighlighted = false;
             console.log('mouseUp works');
         };
     }]);
