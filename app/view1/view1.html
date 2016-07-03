@@ -36,8 +36,8 @@
             <div></div>
         </div>
         <div class="card-slot atm-control">
-            <div>CARD</div>
-            <div>{{testMessage}}</div>
+            <div>CARD - {{testMessage}}</div>
+            <div drop="onDrop($data, $event)" drop-effect="copy" drop-accept="'json/custom-object'" drag-over="onDragOver($event)" drag-over-class="drag-over-accept">DROP TO HERE</div>
             <div><img id="insert-atm-card-label" src="assets/insert-atm-card-label.jpg" alt="insert-atm-card-label"></div>
         </div>
     </div>
@@ -120,7 +120,8 @@
 </div>
 <div class="atm-panel">
     <div class="left-panel"></div>
-    <div class="right-panel">
-        <img id="atm-card" src="assets/atm-card.jpeg" alt="atm-card">
-    </div>
+    <div draggable="true" effect-allowed="copy" draggable-type="custom-object" draggable-data="{foo: 'bar'}">DRAG FROM HERE</div>
+    <!--<div class="right-panel">-->
+        <!--<img id="atm-card" src="assets/atm-card.jpeg" alt="atm-card">-->
+    <!--</div>-->
 </div>
