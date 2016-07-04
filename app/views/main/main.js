@@ -16,9 +16,8 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop'])
             'cardNumber': 123457898765432
         };
 
-        this.onDrop = function (data, event) {
+        ctrl.onDrop = function (data, event) {
             console.log('drop works');
-            ctrl.isAtmSlotHighlighted = false;
             var insertedCard = data['json/custom-object'];
             if (!insertedCard || insertedCard.cardType !== 'atmCard') return;
             console.log('An ATM card was found to be inserted')
