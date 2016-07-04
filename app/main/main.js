@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('myApp.view1', ['ngRoute', 'draganddrop'])
+angular.module('myApp.main', ['ngRoute', 'draganddrop'])
 
     .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/view1', {
-            templateUrl: 'view1/view1.html',
-            controller: 'View1Ctrl'
+        $routeProvider.when('/main', {
+            templateUrl: 'main/main.html',
+            controller: 'MainCtrl'
         });
     }])
 
-    .controller('View1Ctrl', ['$scope', function ($scope) {
+    .controller('MainCtrl', ['$scope', function ($scope) {
         var selfScope = $scope;
         $scope.isAtmSlotHighlighted = false;
         $scope.customerAtmCard = {
