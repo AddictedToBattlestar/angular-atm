@@ -37,7 +37,7 @@
         </div>
         <div class="card-slot atm-control">
             <div>CARD</div>
-            <div drop="onDrop($data, $event)" drop-effect="copy" drop-accept="'json/custom-object'" drag-over="onDragOver($event)" drag-over-class="drag-over-accept" ng-class="{'atm-slot-highlighted' : isAtmSlotHighlighted === true}"></div>
+            <div drop="onDrop($data, $event)" drop-effect="copy" drop-accept="'json/custom-object'" drag-over="onDragOver($event)"></div>
             <div><img id="insert-atm-card-label" src="assets/insert-atm-card-label.jpg" alt="insert-atm-card-label"></div>
         </div>
     </div>
@@ -120,7 +120,7 @@
 </div>
 <div class="atm-panel">
     <div class="left-panel"></div>
-    <div class="right-panel" draggable="true" effect-allowed="copy" draggable-type="custom-object" draggable-data="{foo: 'bar'}" ng-mousedown="mouseDown()" ng-mouseup="mouseUp()">
+    <div class="right-panel" draggable="true" effect-allowed="copy" draggable-type="custom-object" draggable-data="{{customerAtmCard}}">
         <img id="atm-card" src="assets/atm-card.jpeg" alt="atm-card">
     </div>
 </div>

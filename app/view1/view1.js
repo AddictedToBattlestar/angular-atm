@@ -12,24 +12,16 @@ angular.module('myApp.view1', ['ngRoute', 'draganddrop'])
     .controller('View1Ctrl', ['$scope', function ($scope) {
         var selfScope = $scope;
         $scope.isAtmSlotHighlighted = false;
+        $scope.customerAtmCard = {
+            'cardType': 'atmCard',
+            'cardNumber': 123457898765432
+        };
 
-        // Drop handler.
         $scope.onDrop = function (data, event) {
-            // Get custom object data.
-            // var customObjectData = data['json/custom-object']; // {foo: 'bar'}
-
-            // Get other attached data.
-            // var uriList = data['text/uri-list']; // http://mywebsite.com/..
             console.log('drop works');
-        };
-
-        $scope.mouseDown = function (event) {
-            selfScope.isAtmSlotHighlighted = true;
-            console.log('mouseDown works');
-        };
-
-        $scope.mouseUp = function (event) {
             selfScope.isAtmSlotHighlighted = false;
-            console.log('mouseUp works');
+            var insertedCard = data['json/custom-object'];
+            if (!insertedCard || insertedCard.cardType !== 'atmCard') return;
+            console.log('An ATM card was found to be inserted')
         };
     }]);
