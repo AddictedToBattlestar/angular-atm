@@ -1,126 +1,131 @@
-<div class="atm-panel">
-    <div class="left-panel">
-        <div class="atm-numeric-buttons-left">
-            <div class="atm-numeric-button">
-                <input type="button" id="displayButton1">
-            </div>
-            <div class="atm-numeric-button">
-                <input type="button" id="displayButton2">
-            </div>
-            <div class="atm-numeric-button">
-                <input type="button" id="displayButton3">
-            </div>
-            <div class="atm-numeric-button">
-                <input type="button" id="displaybutton4">
-            </div>
-        </div>
-        <atm-display></atm-display>
-        <div class="atm-numeric-buttons-right">
-            <div class="atm-numeric-button">
-                <input type="button" id="displayButton5">
-            </div>
-            <div class="atm-numeric-button">
-                <input type="button" id="displayButton6">
-            </div>
-            <div class="atm-numeric-button">
-                <input type="button" id="displayButton7">
-            </div>
-            <div class="atm-numeric-button">
-                <input type="button" id="displayButton8">
-            </div>
-        </div>
-    </div>
-    <div class="right-panel">
-        <div class="receipt-dispenser atm-control">
-            <div>RECEIPT</div>
-            <div></div>
-        </div>
-        <div class="card-slot atm-control">
-            <div>CARD</div>
-            <div drop="onDrop($data, $event)" drop-effect="copy" drop-accept="'json/custom-object'" drag-over="onDragOver($event)"></div>
-            <div><img id="insert-atm-card-label" src="assets/insert-atm-card-label.jpg" alt="insert-atm-card-label"></div>
-        </div>
-    </div>
-</div>
-<div class="atm-panel">
-    <div class="left-panel">
-        <div class="cash-dispenser atm-control">
-            <div>CASH</div>
-            <div></div>
-        </div>
-    </div>
-    <div class="right-panel">
-        <div class="deposit-slot atm-control">
-            <div>DEPOSIT</div>
-            <div></div>
-        </div>
-    </div>
-</div>
-<div class="atm-panel">
-    <div class="left-panel">
-        <div class="keypad">
-            <div class="number-pad">
-                <div class="number-pad-row">
-                    <div class="atm-numeric-button">
-                        <input type="button" id="keypadButton1" value="1">
-                    </div>
-                    <div class="atm-numeric-button">
-                        <input type="button" id="keypadButton2" value="2">
-                    </div>
-                    <div class="atm-numeric-button">
-                        <input type="button" id="keypadButton3" value="3">
-                    </div>
+<div ng-controller="MainCtrl as ctrl">
+    <div class="atm-panel">
+        <div class="left-panel">
+            <div class="atm-numeric-buttons-left">
+                <div class="atm-numeric-button">
+                    <input type="button" id="displayButton1">
                 </div>
-                <div class="number-pad-row">
-                    <div class="atm-numeric-button">
-                        <input type="button" id="keypadButton4" value="4">
-                    </div>
-                    <div class="atm-numeric-button">
-                        <input type="button" id="keypadButton5" value="5">
-                    </div>
-                    <div class="atm-numeric-button">
-                        <input type="button" id="keypadButton6" value="6">
-                    </div>
+                <div class="atm-numeric-button">
+                    <input type="button" id="displayButton2">
                 </div>
-                <div class="number-pad-row">
-                    <div class="atm-numeric-button">
-                        <input type="button" id="keypadButton7" value="7">
-                    </div>
-                    <div class="atm-numeric-button">
-                        <input type="button" id="keypadButton8" value="8">
-                    </div>
-                    <div class="atm-numeric-button">
-                        <input type="button" id="keypadButton9" value="9">
-                    </div>
+                <div class="atm-numeric-button">
+                    <input type="button" id="displayButton3">
                 </div>
-                <div class="number-pad-row">
-                    <div class="atm-numeric-button">
-                    </div>
-                    <div class="atm-numeric-button">
-                        <input type="button" id="keypadButton0" value="0">
-                    </div>
-                    <div class="atm-numeric-button">
-                    </div>
+                <div class="atm-numeric-button">
+                    <input type="button" id="displaybutton4">
                 </div>
             </div>
-            <div class="number-pad-actions">
-                <div class="atm-button">
-                    <input type="button" id="cancelButton" value="CANCEL">
+            <atm-display></atm-display>
+            <div class="atm-numeric-buttons-right">
+                <div class="atm-numeric-button">
+                    <input type="button" id="displayButton5">
                 </div>
-                <div class="atm-button">
-                    <input type="button" id="clearButton" value="CLEAR">
+                <div class="atm-numeric-button">
+                    <input type="button" id="displayButton6">
                 </div>
-                <div class="atm-button">
-                    <input type="button" id="enterButton" value="ENTER">
+                <div class="atm-numeric-button">
+                    <input type="button" id="displayButton7">
+                </div>
+                <div class="atm-numeric-button">
+                    <input type="button" id="displayButton8">
+                </div>
+            </div>
+        </div>
+        <div class="right-panel">
+            <div class="receipt-dispenser atm-control">
+                <div>RECEIPT</div>
+                <div></div>
+            </div>
+            <div class="card-slot atm-control">
+                <div>CARD</div>
+                <div drop="onDrop($data, $event)" drop-effect="copy" drop-accept="'json/custom-object'"
+                     drag-over="onDragOver($event)"></div>
+                <div><img id="insert-atm-card-label" src="assets/insert-atm-card-label.jpg" alt="insert-atm-card-label">
                 </div>
             </div>
         </div>
     </div>
-    <div class="right-panel"></div>
-</div>
-<div class="atm-panel">
-    <div class="left-panel"></div>
-    <div class="right-panel" draggable="true" effect-allowed="copy" draggable-type="custom-object" draggable-data="{{customerAtmCard}}">
-        <img id="atm-card" src="assets/atm-card.jpeg" alt="atm-card">
+    <div class="atm-panel">
+        <div class="left-panel">
+            <div class="cash-dispenser atm-control">
+                <div>CASH</div>
+                <div></div>
+            </div>
+        </div>
+        <div class="right-panel">
+            <div class="deposit-slot atm-control">
+                <div>DEPOSIT</div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <div class="atm-panel">
+        <div class="left-panel">
+            <div class="keypad">
+                <div class="number-pad">
+                    <div class="number-pad-row">
+                        <div class="atm-numeric-button">
+                            <input type="button" id="keypadButton1" value="1">
+                        </div>
+                        <div class="atm-numeric-button">
+                            <input type="button" id="keypadButton2" value="2">
+                        </div>
+                        <div class="atm-numeric-button">
+                            <input type="button" id="keypadButton3" value="3">
+                        </div>
+                    </div>
+                    <div class="number-pad-row">
+                        <div class="atm-numeric-button">
+                            <input type="button" id="keypadButton4" value="4">
+                        </div>
+                        <div class="atm-numeric-button">
+                            <input type="button" id="keypadButton5" value="5">
+                        </div>
+                        <div class="atm-numeric-button">
+                            <input type="button" id="keypadButton6" value="6">
+                        </div>
+                    </div>
+                    <div class="number-pad-row">
+                        <div class="atm-numeric-button">
+                            <input type="button" id="keypadButton7" value="7">
+                        </div>
+                        <div class="atm-numeric-button">
+                            <input type="button" id="keypadButton8" value="8">
+                        </div>
+                        <div class="atm-numeric-button">
+                            <input type="button" id="keypadButton9" value="9">
+                        </div>
+                    </div>
+                    <div class="number-pad-row">
+                        <div class="atm-numeric-button">
+                        </div>
+                        <div class="atm-numeric-button">
+                            <input type="button" id="keypadButton0" value="0">
+                        </div>
+                        <div class="atm-numeric-button">
+                        </div>
+                    </div>
+                </div>
+                <div class="number-pad-actions">
+                    <div class="atm-button">
+                        <input type="button" id="cancelButton" value="CANCEL">
+                    </div>
+                    <div class="atm-button">
+                        <input type="button" id="clearButton" value="CLEAR">
+                    </div>
+                    <div class="atm-button">
+                        <input type="button" id="enterButton" value="ENTER">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-panel"></div>
+    </div>
+    <div class="atm-panel">
+        <div class="left-panel"></div>
+        <div class="right-panel" draggable="true" effect-allowed="copy" draggable-type="custom-object"
+             draggable-data="{{ctrl.customerAtmCard}}">
+            <img id="atm-card" src="assets/atm-card.jpeg" alt="atm-card">
+        </div>
     </div>
 </div>
