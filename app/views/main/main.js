@@ -3,8 +3,8 @@
 angular.module('myApp.main', ['ngRoute', 'draganddrop'])
 
     .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/main', {
-            templateUrl: 'main/main.html',
+        $routeProvider.when('/', {
+            templateUrl: 'views/main/main.html',
             controller: 'MainCtrl'
         });
     }])
