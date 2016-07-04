@@ -8,8 +8,8 @@ describe('myApp.about module', function() {
 
     it('should ....', inject(function($controller) {
       //spec body
-      var AboutCtrl = $controller('AboutCtrl');
-      expect(AboutCtrl).toBeDefined();
+      var aboutCtrl = $controller('AboutCtrl');
+      expect(aboutCtrl).toBeDefined();
     }));
 
   });

@@ -8,8 +8,8 @@ describe('myApp.main module', function() {
 
     it('should ....', inject(function($controller) {
       //spec body
-      var view1Ctrl = $controller('MainCtrl');
-      expect(view1Ctrl).toBeDefined();
+      var mainCtrl = $controller('MainCtrl');
+      expect(mainCtrl).toBeDefined();
     }));
 
   });
