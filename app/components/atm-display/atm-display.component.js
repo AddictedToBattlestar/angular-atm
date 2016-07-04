@@ -7,7 +7,7 @@ component('atmDisplay', {
     controller: function AtmDisplayController($http) {
         var self = this;
 
-        $http.get('assets/displays.json').then(function(response) {
+        $http.get('api/displays.json').then(function(response) {
             self.availableDisplays = response.data;
             self.currentDisplay = response.data["welcome"];
         });
