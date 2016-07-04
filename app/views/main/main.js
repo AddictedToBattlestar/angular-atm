@@ -10,15 +10,15 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop'])
     }])
 
     .controller('MainCtrl', ['$scope', function () {
-        var self = this;
-        this.customerAtmCard = {
+        var ctrl = this;
+        ctrl.customerAtmCard = {
             'cardType': 'atmCard',
             'cardNumber': 123457898765432
         };
 
         this.onDrop = function (data, event) {
             console.log('drop works');
-            self.isAtmSlotHighlighted = false;
+            ctrl.isAtmSlotHighlighted = false;
             var insertedCard = data['json/custom-object'];
             if (!insertedCard || insertedCard.cardType !== 'atmCard') return;
             console.log('An ATM card was found to be inserted')
