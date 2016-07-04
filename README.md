@@ -93,10 +93,10 @@ app/                    --> all of the source files for the application
     main.html            --> the partial template
     main.js              --> the controller logic
     main_test.js         --> tests of the controller
-  view2/                --> the view2 view template and logic
-    view2.html            --> the partial template
-    view2.js              --> the controller logic
-    view2_test.js         --> tests of the controller
+  about/                --> the about view template and logic
+    about.html            --> the partial template
+    about.js              --> the controller logic
+    about.js         --> tests of the controller
   app.js                --> main application module
   index.html            --> app layout file (the main html template file of the app)
   index-async.html      --> just like index.html, but loads js files asynchronously

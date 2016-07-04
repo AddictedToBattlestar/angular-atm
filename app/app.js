@@ -6,7 +6,7 @@ angular.module('myApp', [
     'ngMaterial',
     'draganddrop',
     'myApp.main',
-    'myApp.view2',
+    'myApp.about',
     'myApp.version',
     'myApp.atmDisplay'
 ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
