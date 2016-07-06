@@ -15,6 +15,7 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop'])
             'cardType': 'atmCard',
             'cardNumber': 123457898765432
         };
+        ctrl.showCustomerAtmCard = true;
         ctrl.currentDisplay = '';
 
         ctrl.onDrop = function (data, event) {
@@ -23,5 +24,6 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop'])
             if (!insertedCard || insertedCard.cardType !== 'atmCard') return;
             console.log('An ATM card was found to be inserted')
             ctrl.currentDisplay = 'enterPinNumber';
+            ctrl.showCustomerAtmCard = false;
         };
     }]);
