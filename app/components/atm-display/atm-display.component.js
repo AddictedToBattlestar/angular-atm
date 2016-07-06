@@ -6,15 +6,17 @@ component('atmDisplay', {
     templateUrl: 'components/atm-display/atm-display.template.html',
     controller: function AtmDisplayController($http) {
         var ctrl = this;
-        ctrl.selectedDisplay = '';
+        ctrl.currentDisplay = '';
+
+        ctrl.$onInit = function() {
+            ctrl.currentDisplay = 'welcome';
+        };
 
         $http.get('api/displays.json').then(function(response) {
             ctrl.availableDisplays = response.data;
         });
-
-        ctrl.$onInit = function() {
-            ctrl.selectedDisplay = 'snow';
-        };
-
+    },
+    bindings: {
+        currentDisplay: '<'
     }
 });

@@ -24,5 +24,18 @@
     "row09": "                                 ",
     "row10": "                                 ",
     "row11": "                                 "
-  }
+  },
+   "enterPinNumber": {
+     "row01": "                                 ",
+     "row02": "      Enter your PIN number      ",
+     "row03": "           to continue           ",
+     "row04": "                                 ",
+     "row05": "                                 ",
+     "row06": "                                 ",
+     "row07": "                                 ",
+     "row08": "                                 ",
+     "row09": "                                 ",
+     "row10": "                         CANCEL >",
+     "row11": "                                 "
+   }
 }
