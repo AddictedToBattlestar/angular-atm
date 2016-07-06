@@ -17,7 +17,7 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop'])
         };
         ctrl.showCustomerAtmCard = true;
         ctrl.currentDisplay = '';
-
+        
         ctrl.onDrop = function (data, event) {
             console.log('drop works');
             var insertedCard = data['json/custom-object'];
