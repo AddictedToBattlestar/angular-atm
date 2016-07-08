@@ -24,6 +24,11 @@ factory('atmMachineKataService', ['atmDisplay', 'atmCardSlot',  function(atmDisp
         }
     };
 
+    service.cancel = function() {
+        ejectCardInserted();
+        atmDisplay.show('welcome');
+    };
+
     function ejectCardInserted() {
         atmCardSlot.ejectCard(service.cardInserted);
         service.cardInserted = {};

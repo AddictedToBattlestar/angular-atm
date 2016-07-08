@@ -35,12 +35,11 @@ describe('atm-machine-kata', function () {
             expect(mockAtmDisplay.show).toHaveBeenCalledWith('welcome')
         });
 
-        and('an ATM card is inserted', function () {
+        when('an ATM card is inserted', function () {
             var testAtmCard = {
                 type: 'atmCard',
                 pin: 1234
             };
-
             beforeEach(function () {
                 mockAtmDisplay.show.calls.reset();
                 subject.atmCardInserted(testAtmCard);
@@ -50,22 +49,38 @@ describe('atm-machine-kata', function () {
                 expect(mockAtmDisplay.show).toHaveBeenCalledWith('promptForPin');
             });
 
+            and('an invalid card is inserted', function () {
+                var testUnRecognizedCard = {
+                    someRandomKey: 'someRandomValue'
+                };
+                beforeEach(function () {
+                    mockAtmDisplay.show.calls.reset();
+                    subject.atmCardInserted(testUnRecognizedCard);
+                });
+
+                it('shows a message stating that the card is not valid', function () {
+                    expect(mockAtmDisplay.show).toHaveBeenCalledWith('invalidCardInserted');
+                });
+
+                it('returns the inserted card back to the customer', function() {
+                    expect(mockAtmCardSlot.ejectCard).toHaveBeenCalledWith(testUnRecognizedCard);
+                });
+            });
+
             and('the correct PIN number is entered', function () {
                 var pinNumber = 1234;
-                
                 beforeEach(function() {
                     mockAtmDisplay.show.calls.reset();
                     subject.submitPin(pinNumber);
                 });
                 
-                it('show a screen with transactions that are allowed', function() {
+                it('shows a screen with transactions that are allowed', function() {
                     expect(mockAtmDisplay.show).toHaveBeenCalledWith('selectTransaction');
                 });
             });
 
             and('the wrong PIN number is entered', function () {
                 var pinNumber = 1111;
-
                 beforeEach(function() {
                     mockAtmDisplay.show.calls.reset();
                     subject.submitPin(pinNumber);
@@ -81,24 +96,30 @@ describe('atm-machine-kata', function () {
             });
         });
 
-        and('an invalid card is inserted', function () {
-            var testUnRecognizedCard = {
-                someRandomKey: 'someRandomValue'
+        when('the transaction screen is shown', function() {
+            var testAtmCard = {
+                type: 'atmCard',
+                pin: 1234
             };
-
-            beforeEach(function () {
+            beforeEach(function() {
                 mockAtmDisplay.show.calls.reset();
-                subject.atmCardInserted(testUnRecognizedCard);
+                subject.atmCardInserted(testAtmCard);
             });
+            
+            and('the customer selects cancel', function () {
+               beforeEach(function() {
+                   subject.cancel();
+               });
 
-            it('shows a message stating that the card is not valid', function () {
-                expect(mockAtmDisplay.show).toHaveBeenCalledWith('invalidCardInserted');
-            });
+                it('returns the inserted card back to the customer', function() {
+                    expect(mockAtmCardSlot.ejectCard).toHaveBeenCalledWith(testAtmCard);
+                });
 
-            it('returns the inserted card back to the customer', function() {
-                expect(mockAtmCardSlot.ejectCard).toHaveBeenCalledWith(testUnRecognizedCard);
+                it('displays a welcome screen ', function () {
+                    expect(mockAtmDisplay.show).toHaveBeenCalledWith('welcome')
+                });
             });
-        })
+        });
 
     });
 });
