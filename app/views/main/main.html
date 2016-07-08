@@ -3,7 +3,7 @@
         <div class="left-panel">
             <div class="atm-numeric-buttons-left">
                 <div class="atm-numeric-button">
-                    <input type="button" id="displayButton1">
+                    <input type="button" id="displayButton1" ng-click="ctrl.displayButtonClick">
                 </div>
                 <div class="atm-numeric-button">
                     <input type="button" id="displayButton2">
@@ -38,7 +38,7 @@
             </div>
             <div class="card-slot atm-control">
                 <div>CARD</div>
-                <div drop="ctrl.processCardInserted($data, $event)" drop-effect="copy" drop-accept="'json/custom-object'"></div>
+                <div drop="ctrl.cardInserted($data, $event)" drop-effect="copy" drop-accept="'json/custom-object'"></div>
                 <div><img id="insert-atm-card-label" src="assets/insert-atm-card-label.jpg" alt="insert-atm-card-label">
                 </div>
             </div>
@@ -60,7 +60,7 @@
     </div>
     <div class="atm-panel">
         <div class="left-panel">
-            <key-pad key-press="ctrl.processNumberPadKeyPress(keyPressed)"></key-pad>
+            <key-pad key-press="ctrl.numberPadKeyClick(keyPressed)"></key-pad>
         </div>
         <div class="right-panel"></div>
     </div>
