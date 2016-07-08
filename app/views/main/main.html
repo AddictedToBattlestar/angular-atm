@@ -60,63 +60,7 @@
     </div>
     <div class="atm-panel">
         <div class="left-panel">
-            <div class="keypad">
-                <div class="number-pad">
-                    <div class="number-pad-row">
-                        <div class="atm-numeric-button">
-                            <input type="button" id="keypadButton1" value="1" ng-click="ctrl.processNumberPadKeyPress(1)">
-                        </div>
-                        <div class="atm-numeric-button">
-                            <input type="button" id="keypadButton2" value="2" ng-click="ctrl.processNumberPadKeyPress(2)">
-                        </div>
-                        <div class="atm-numeric-button">
-                            <input type="button" id="keypadButton3" value="3" ng-click="ctrl.processNumberPadKeyPress(3)">
-                        </div>
-                    </div>
-                    <div class="number-pad-row">
-                        <div class="atm-numeric-button">
-                            <input type="button" id="keypadButton4" value="4" ng-click="ctrl.processNumberPadKeyPress(4)">
-                        </div>
-                        <div class="atm-numeric-button">
-                            <input type="button" id="keypadButton5" value="5" ng-click="ctrl.processNumberPadKeyPress(5)">
-                        </div>
-                        <div class="atm-numeric-button">
-                            <input type="button" id="keypadButton6" value="6" ng-click="ctrl.processNumberPadKeyPress(6)">
-                        </div>
-                    </div>
-                    <div class="number-pad-row">
-                        <div class="atm-numeric-button">
-                            <input type="button" id="keypadButton7" value="7" ng-click="ctrl.processNumberPadKeyPress(7)">
-                        </div>
-                        <div class="atm-numeric-button">
-                            <input type="button" id="keypadButton8" value="8" ng-click="ctrl.processNumberPadKeyPress(8)">
-                        </div>
-                        <div class="atm-numeric-button">
-                            <input type="button" id="keypadButton9" value="9" ng-click="ctrl.processNumberPadKeyPress(9)">
-                        </div>
-                    </div>
-                    <div class="number-pad-row">
-                        <div class="atm-numeric-button">
-                        </div>
-                        <div class="atm-numeric-button">
-                            <input type="button" id="keypadButton0" value="0" ng-click="ctrl.processNumberPadKeyPress(0)">
-                        </div>
-                        <div class="atm-numeric-button">
-                        </div>
-                    </div>
-                </div>
-                <div class="number-pad-actions">
-                    <div class="atm-button">
-                        <input type="button" id="cancelButton" value="CANCEL">
-                    </div>
-                    <div class="atm-button">
-                        <input type="button" id="clearButton" value="CLEAR">
-                    </div>
-                    <div class="atm-button">
-                        <input type="button" id="enterButton" value="ENTER">
-                    </div>
-                </div>
-            </div>
+            <key-pad process-number-pad-key-press="ctrl.processNumberPadKeyPress(keyPressed)"></key-pad>
         </div>
         <div class="right-panel"></div>
     </div>

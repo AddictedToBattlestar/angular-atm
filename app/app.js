@@ -8,7 +8,8 @@ angular.module('myApp', [
     'myApp.main',
     'myApp.about',
     'myApp.version',
-    'myApp.atmDisplay'
+    'myApp.atmDisplay',
+    'myApp.keyPad'
 ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('!');
 
