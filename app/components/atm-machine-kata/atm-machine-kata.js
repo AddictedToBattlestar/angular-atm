@@ -1,6 +1,6 @@
 angular.
 module('myApp.atmMachineKata', []).
-factory('atmMachineKataService', ['atmDisplay', 'atmCardSlot',  function(atmDisplay, atmCardSlot) {
+factory('atmMachineKataService', ['atmDisplay', 'atmCardSlot', 'customerAccountApi',  function(atmDisplay, atmCardSlot, customerAccountApi) {
     var service = this;
     service.cardInserted = {};
     atmDisplay.show('welcome');
@@ -31,6 +31,12 @@ factory('atmMachineKataService', ['atmDisplay', 'atmCardSlot',  function(atmDisp
 
     service.startWithdrawal = function() {
         atmDisplay.show('selectBalanceOutput');
+    };
+    
+    service.showAccountBalance = function() {
+      //noinspection JSUnresolvedFunction
+        var accountBalance = customerAccountApi.getBalance(service.cardInserted.accountNumber);
+        atmDisplay.show('displayAccountBalance', accountBalance);
     };
 
     function ejectCardInserted() {

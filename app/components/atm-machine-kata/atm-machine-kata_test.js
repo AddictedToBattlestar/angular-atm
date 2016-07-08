@@ -10,7 +10,7 @@ var and = sugarFn('and');
 
 describe('atm-machine-kata', function () {
     var subject;
-    var mockAtmDisplay, mockAtmCardSlot;
+    var mockAtmDisplay, mockAtmCardSlot, mockCustomerAccountApi;
     var fakeAtmCard;
 
     beforeEach(module('myApp.atmMachineKata'));
@@ -20,6 +20,7 @@ describe('atm-machine-kata', function () {
         module(function ($provide) {
             $provide.value('atmDisplay', mockAtmDisplay);
             $provide.value('atmCardSlot', mockAtmCardSlot);
+            $provide.value('customerAccountApi', mockCustomerAccountApi);
         });
     });
 
@@ -30,7 +31,7 @@ describe('atm-machine-kata', function () {
             });
         });
 
-        it('displays a welcome screen ', function () {
+        it('displays a welcome screen', function () {
             expect(mockAtmDisplay.show).toHaveBeenCalledWith('welcome')
         });
 
@@ -117,6 +118,25 @@ describe('atm-machine-kata', function () {
                 it('displays a screen asking how they would like their balance provided', function () {
                     expect(mockAtmDisplay.show).toHaveBeenCalledWith('selectBalanceOutput');
                 });
+
+                when('selecting to have their account balance shown on the screen', function() {
+                    beforeEach(function() {
+                        mockAtmDisplay.show.calls.reset();
+                        //noinspection JSUnresolvedVariable,JSUnresolvedFunction
+                        mockCustomerAccountApi.getBalance.and.returnValue(99.25);
+                        subject.showAccountBalance();
+                    });
+
+                    it('requests the customers account balance from the api', function() {
+                        //noinspection JSUnresolvedVariable
+                        expect(mockCustomerAccountApi.getBalance).toHaveBeenCalledWith(fakeAtmCard.accountNumber);
+                    });
+
+                    it('then displays the customers account balance', function () {
+                        expect(mockAtmDisplay.show).toHaveBeenCalledWith('displayAccountBalance', 99.25);
+                    });
+
+                })
             });
         });
 
@@ -125,9 +145,11 @@ describe('atm-machine-kata', function () {
     function initMocksAndFakes() {
         mockAtmDisplay = {show: jasmine.createSpy()};
         mockAtmCardSlot = {ejectCard: jasmine.createSpy()};
+        mockCustomerAccountApi = jasmine.createSpyObj('customerAccountApi', ['getBalance']);
         fakeAtmCard = {
             type: 'atmCard',
-            pin: 1234
+            pin: 1234,
+            accountNumber: 1234567890
         };
     }
 });
