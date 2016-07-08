@@ -10,15 +10,15 @@ describe('atm-machine-kata', function() {
         module(function($provide) {
             $provide.value('atmDisplay', mockAtmDisplay);
         });
-
-        inject(function($injector) {
-            subject = $injector.get('atmMachineKataService');
-        });
     });
 
     describe('when started', function() {
-
-
+        beforeEach(function() {
+            inject(function($injector) {
+                subject = $injector.get('atmMachineKataService');
+            });
+        });
+        
         it('displays a welcome screen ', function() {
             expect(mockAtmDisplay.show).toHaveBeenCalledWith('welcome')
         });
