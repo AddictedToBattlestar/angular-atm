@@ -1,5 +1,13 @@
 'use strict';
 
+
+var sugarFn = function (term) {
+    return function (desc, fn) {
+        return describe(term + ' ' + desc, fn);
+    };
+};
+var when = sugarFn('when');
+
 describe('atm-machine-kata', function() {
     var subject, mockAtmDisplay;
 
@@ -12,7 +20,7 @@ describe('atm-machine-kata', function() {
         });
     });
 
-    describe('when started', function() {
+    when('started', function() {
         beforeEach(function() {
             inject(function($injector) {
                 subject = $injector.get('atmMachineKataService');
@@ -22,5 +30,36 @@ describe('atm-machine-kata', function() {
         it('displays a welcome screen ', function() {
             expect(mockAtmDisplay.show).toHaveBeenCalledWith('welcome')
         });
+
+        when('an ATM card is inserted', function() {
+            var testAtmCard = {
+                type: 'atmCard'
+            };
+
+            beforeEach(function() {
+                mockAtmDisplay.show.calls.reset();
+                subject.atmCardInserted(testAtmCard);
+            });
+            
+            it('shows a prompt to the customer asking them to input their PIN number', function() {
+                expect(mockAtmDisplay.show).toHaveBeenCalledWith('promptForPin');
+            });
+        });
+
+        when('an unrecognized card is inserted', function() {
+            var testUnRecognizedCard = {
+                someRandomKey: 'someRandomValue'
+            };
+
+            beforeEach(function() {
+                mockAtmDisplay.show.calls.reset();
+                subject.atmCardInserted(testUnRecognizedCard);
+            });
+
+            it('shows a message stating that the card is not ', function() {
+                expect(mockAtmDisplay.show).toHaveBeenCalledWith('invalidCardInserted');
+            });
+        })
+
     });
 });
