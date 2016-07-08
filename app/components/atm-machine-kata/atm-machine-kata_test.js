@@ -1,6 +1,5 @@
 'use strict';
 
-
 var sugarFn = function (term) {
     return function (desc, fn) {
         return describe(term + ' ' + desc, fn);
@@ -12,11 +11,11 @@ var and = sugarFn('and');
 describe('atm-machine-kata', function () {
     var subject;
     var mockAtmDisplay, mockAtmCardSlot;
+    var fakeAtmCard;
 
     beforeEach(module('myApp.atmMachineKata'));
     beforeEach(function () {
-        mockAtmDisplay = {show: jasmine.createSpy()};
-        mockAtmCardSlot = {ejectCard: jasmine.createSpy()};
+        initMocksAndFakes();
 
         module(function ($provide) {
             $provide.value('atmDisplay', mockAtmDisplay);
@@ -36,13 +35,9 @@ describe('atm-machine-kata', function () {
         });
 
         when('an ATM card is inserted', function () {
-            var testAtmCard = {
-                type: 'atmCard',
-                pin: 1234
-            };
             beforeEach(function () {
                 mockAtmDisplay.show.calls.reset();
-                subject.atmCardInserted(testAtmCard);
+                subject.atmCardInserted(fakeAtmCard);
             });
 
             it('shows a prompt to the customer asking them to input their PIN number', function () {
@@ -50,76 +45,89 @@ describe('atm-machine-kata', function () {
             });
 
             and('an invalid card is inserted', function () {
-                var testUnRecognizedCard = {
+                var fakeUnRecognizedCard = {
                     someRandomKey: 'someRandomValue'
                 };
                 beforeEach(function () {
                     mockAtmDisplay.show.calls.reset();
-                    subject.atmCardInserted(testUnRecognizedCard);
+                    subject.atmCardInserted(fakeUnRecognizedCard);
                 });
 
                 it('shows a message stating that the card is not valid', function () {
                     expect(mockAtmDisplay.show).toHaveBeenCalledWith('invalidCardInserted');
                 });
 
-                it('returns the inserted card back to the customer', function() {
-                    expect(mockAtmCardSlot.ejectCard).toHaveBeenCalledWith(testUnRecognizedCard);
+                it('returns the inserted card back to the customer', function () {
+                    expect(mockAtmCardSlot.ejectCard).toHaveBeenCalledWith(fakeUnRecognizedCard);
                 });
             });
 
             and('the correct PIN number is entered', function () {
-                var pinNumber = 1234;
-                beforeEach(function() {
+                beforeEach(function () {
                     mockAtmDisplay.show.calls.reset();
-                    subject.submitPin(pinNumber);
+                    subject.submitPin(fakeAtmCard.pin);
                 });
-                
-                it('shows a screen with transactions that are allowed', function() {
+
+                it('shows a screen with transactions that are allowed', function () {
                     expect(mockAtmDisplay.show).toHaveBeenCalledWith('selectTransaction');
                 });
             });
 
             and('the wrong PIN number is entered', function () {
-                var pinNumber = 1111;
-                beforeEach(function() {
+                beforeEach(function () {
                     mockAtmDisplay.show.calls.reset();
-                    subject.submitPin(pinNumber);
+                    subject.submitPin(1111);
                 });
 
-                it('show a screen with transactions that are allowed', function() {
+                it('show a screen with transactions that are allowed', function () {
                     expect(mockAtmDisplay.show).toHaveBeenCalledWith('invalidPinEntered');
                 });
 
-                it('returns the inserted card back to the customer', function() {
-                    expect(mockAtmCardSlot.ejectCard).toHaveBeenCalledWith(testAtmCard);
+                it('returns the inserted card back to the customer', function () {
+                    expect(mockAtmCardSlot.ejectCard).toHaveBeenCalledWith(fakeAtmCard);
                 });
             });
         });
 
-        when('the transaction screen is shown', function() {
-            var testAtmCard = {
-                type: 'atmCard',
-                pin: 1234
-            };
-            beforeEach(function() {
+        when('the transaction screen is shown', function () {
+            beforeEach(function () {
                 mockAtmDisplay.show.calls.reset();
-                subject.atmCardInserted(testAtmCard);
+                subject.atmCardInserted(fakeAtmCard);
             });
-            
-            and('the customer selects cancel', function () {
-               beforeEach(function() {
-                   subject.cancel();
-               });
 
-                it('returns the inserted card back to the customer', function() {
-                    expect(mockAtmCardSlot.ejectCard).toHaveBeenCalledWith(testAtmCard);
+            and('the customer selects "cancel"', function () {
+                beforeEach(function () {
+                    subject.cancel();
+                });
+
+                it('returns the inserted card back to the customer', function () {
+                    expect(mockAtmCardSlot.ejectCard).toHaveBeenCalledWith(fakeAtmCard);
                 });
 
                 it('displays a welcome screen ', function () {
                     expect(mockAtmDisplay.show).toHaveBeenCalledWith('welcome')
                 });
             });
+
+            and('the customer selects "account balance"', function () {
+                beforeEach(function () {
+                    subject.startWithdrawal();
+                });
+
+                it('displays a screen asking how they would like their balance provided', function () {
+                    expect(mockAtmDisplay.show).toHaveBeenCalledWith('selectBalanceOutput');
+                });
+            });
         });
 
     });
+
+    function initMocksAndFakes() {
+        mockAtmDisplay = {show: jasmine.createSpy()};
+        mockAtmCardSlot = {ejectCard: jasmine.createSpy()};
+        fakeAtmCard = {
+            type: 'atmCard',
+            pin: 1234
+        };
+    }
 });

@@ -29,6 +29,10 @@ factory('atmMachineKataService', ['atmDisplay', 'atmCardSlot',  function(atmDisp
         atmDisplay.show('welcome');
     };
 
+    service.startWithdrawal = function() {
+        atmDisplay.show('selectBalanceOutput');
+    };
+
     function ejectCardInserted() {
         atmCardSlot.ejectCard(service.cardInserted);
         service.cardInserted = {};
