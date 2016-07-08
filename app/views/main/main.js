@@ -19,7 +19,7 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop'])
         };
         ctrl.showCustomerAtmCard = true;        
         ctrl.cardInserted = null;
-        ctrl.cardInserted = function (data, event) {
+        ctrl.processCardInserted = function (data, event) {
             console.log('drop works');
             var insertedCard = data['json/custom-object'];
             if (!insertedCard || insertedCard.cardType !== 'atmCard') return;
