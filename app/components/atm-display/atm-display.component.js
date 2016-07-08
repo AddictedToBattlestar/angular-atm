@@ -1,7 +1,6 @@
 'use strict';
 
-angular.
-module('myApp.atmDisplay').
+angular.module('myApp.atmDisplay', []).
 component('atmDisplay', {
     templateUrl: 'components/atm-display/atm-display.template.html',
     controller: function AtmDisplayController($http) {

@@ -1,16 +1,24 @@
 'use strict';
 
-describe('myApp.about module', function() {
+describe('myApp.about module', function () {
+    var scope;
 
-  beforeEach(module('myApp.about'));
+        beforeEach(function() {
+            module('myApp.about');
+            scope = {
+                testMessage: ''
+            };
+        });
 
-  describe('about controller', function(){
+    describe('about controller', function () {
 
-    it('should ....', inject(function($controller) {
-      //spec body
-      var aboutCtrl = $controller('AboutCtrl');
-      expect(aboutCtrl).toBeDefined();
-    }));
+        it('should ....', inject(function ($controller) {
+            //spec body
+            var aboutCtrl = $controller('AboutCtrl', {
+                $scope: scope
+            });
+            expect(aboutCtrl).toBeDefined();
+        }));
 
-  });
+    });
 });
