@@ -7,57 +7,96 @@ var sugarFn = function (term) {
     };
 };
 var when = sugarFn('when');
+var and = sugarFn('and');
 
-describe('atm-machine-kata', function() {
-    var subject, mockAtmDisplay;
+describe('atm-machine-kata', function () {
+    var subject;
+    var mockAtmDisplay, mockAtmCardSlot;
 
     beforeEach(module('myApp.atmMachineKata'));
-    beforeEach(function() {
+    beforeEach(function () {
         mockAtmDisplay = {show: jasmine.createSpy()};
+        mockAtmCardSlot = {ejectCard: jasmine.createSpy()};
 
-        module(function($provide) {
+        module(function ($provide) {
             $provide.value('atmDisplay', mockAtmDisplay);
+            $provide.value('atmCardSlot', mockAtmCardSlot);
         });
     });
 
-    when('started', function() {
-        beforeEach(function() {
-            inject(function($injector) {
+    when('started', function () {
+        beforeEach(function () {
+            inject(function ($injector) {
                 subject = $injector.get('atmMachineKataService');
             });
         });
-        
-        it('displays a welcome screen ', function() {
+
+        it('displays a welcome screen ', function () {
             expect(mockAtmDisplay.show).toHaveBeenCalledWith('welcome')
         });
 
-        when('an ATM card is inserted', function() {
+        and('an ATM card is inserted', function () {
             var testAtmCard = {
-                type: 'atmCard'
+                type: 'atmCard',
+                pin: 1234
             };
 
-            beforeEach(function() {
+            beforeEach(function () {
                 mockAtmDisplay.show.calls.reset();
                 subject.atmCardInserted(testAtmCard);
             });
-            
-            it('shows a prompt to the customer asking them to input their PIN number', function() {
+
+            it('shows a prompt to the customer asking them to input their PIN number', function () {
                 expect(mockAtmDisplay.show).toHaveBeenCalledWith('promptForPin');
+            });
+
+            and('the correct PIN number is entered', function () {
+                var pinNumber = 1234;
+                
+                beforeEach(function() {
+                    mockAtmDisplay.show.calls.reset();
+                    subject.submitPin(pinNumber);
+                });
+                
+                it('show a screen with transactions that are allowed', function() {
+                    expect(mockAtmDisplay.show).toHaveBeenCalledWith('selectTransaction');
+                });
+            });
+
+            and('the wrong PIN number is entered', function () {
+                var pinNumber = 1111;
+
+                beforeEach(function() {
+                    mockAtmDisplay.show.calls.reset();
+                    subject.submitPin(pinNumber);
+                });
+
+                it('show a screen with transactions that are allowed', function() {
+                    expect(mockAtmDisplay.show).toHaveBeenCalledWith('invalidPinEntered');
+                });
+
+                it('returns the inserted card back to the customer', function() {
+                    expect(mockAtmCardSlot.ejectCard).toHaveBeenCalledWith(testAtmCard);
+                });
             });
         });
 
-        when('an unrecognized card is inserted', function() {
+        and('an invalid card is inserted', function () {
             var testUnRecognizedCard = {
                 someRandomKey: 'someRandomValue'
             };
 
-            beforeEach(function() {
+            beforeEach(function () {
                 mockAtmDisplay.show.calls.reset();
                 subject.atmCardInserted(testUnRecognizedCard);
             });
 
-            it('shows a message stating that the card is not ', function() {
+            it('shows a message stating that the card is not valid', function () {
                 expect(mockAtmDisplay.show).toHaveBeenCalledWith('invalidCardInserted');
+            });
+
+            it('returns the inserted card back to the customer', function() {
+                expect(mockAtmCardSlot.ejectCard).toHaveBeenCalledWith(testUnRecognizedCard);
             });
         })
 
