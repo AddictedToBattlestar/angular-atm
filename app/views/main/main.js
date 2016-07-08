@@ -41,6 +41,12 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop'])
                 ctrl.pinEntered = '';
                 ctrl.keysPressed = 0;
                 ctrl.currentDisplay = 'enterPinNumber';
+            } else if (keyPressed === 'CANCEL') {
+                ctrl.pinEntered = '';
+                ctrl.keysPressed = 0;
+                ctrl.currentDisplay = 'welcome';
+                ctrl.showCustomerAtmCard = true;
+                ctrl.cardInserted = null;
             } else {
                 ctrl.processNumberKey(keyPressed);
             }
