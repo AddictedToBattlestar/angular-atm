@@ -7,6 +7,6 @@ component('keyPad', {
     controller: function() {
     },
     bindings: {
-        processNumberPadKeyPress: '&'
+        keyPress: '&'
     }
 });

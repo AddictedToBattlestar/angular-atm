@@ -2,42 +2,42 @@
     <div class="number-pad">
         <div class="number-pad-row">
             <div class="atm-numeric-button">
-                <input type="button" id="keypadButton1" value="1" ng-click="$ctrl.processNumberPadKeyPress({'keyPressed': 1})">
+                <input type="button" id="keypadButton1" value="1" ng-click="$ctrl.keyPress({'keyPressed': 1})">
             </div>
             <div class="atm-numeric-button">
-                <input type="button" id="keypadButton2" value="2" ng-click="$ctrl.processNumberPadKeyPress({'keyPressed': 2})">
+                <input type="button" id="keypadButton2" value="2" ng-click="$ctrl.keyPress({'keyPressed': 2})">
             </div>
             <div class="atm-numeric-button">
-                <input type="button" id="keypadButton3" value="3" ng-click="$ctrl.processNumberPadKeyPress({'keyPressed': 3})">
-            </div>
-        </div>
-        <div class="number-pad-row">
-            <div class="atm-numeric-button">
-                <input type="button" id="keypadButton4" value="4" ng-click="$ctrl.processNumberPadKeyPress({'keyPressed': 4})">
-            </div>
-            <div class="atm-numeric-button">
-                <input type="button" id="keypadButton5" value="5" ng-click="$ctrl.processNumberPadKeyPress({'keyPressed': 5})">
-            </div>
-            <div class="atm-numeric-button">
-                <input type="button" id="keypadButton6" value="6" ng-click="$ctrl.processNumberPadKeyPress({'keyPressed': 6})">
+                <input type="button" id="keypadButton3" value="3" ng-click="$ctrl.keyPress({'keyPressed': 3})">
             </div>
         </div>
         <div class="number-pad-row">
             <div class="atm-numeric-button">
-                <input type="button" id="keypadButton7" value="7" ng-click="$ctrl.processNumberPadKeyPress({'keyPressed': 7})">
+                <input type="button" id="keypadButton4" value="4" ng-click="$ctrl.keyPress({'keyPressed': 4})">
             </div>
             <div class="atm-numeric-button">
-                <input type="button" id="keypadButton8" value="8" ng-click="$ctrl.processNumberPadKeyPress({'keyPressed': 8})">
+                <input type="button" id="keypadButton5" value="5" ng-click="$ctrl.keyPress({'keyPressed': 5})">
             </div>
             <div class="atm-numeric-button">
-                <input type="button" id="keypadButton9" value="9" ng-click="$ctrl.processNumberPadKeyPress({'keyPressed': 9})">
+                <input type="button" id="keypadButton6" value="6" ng-click="$ctrl.keyPress({'keyPressed': 6})">
+            </div>
+        </div>
+        <div class="number-pad-row">
+            <div class="atm-numeric-button">
+                <input type="button" id="keypadButton7" value="7" ng-click="$ctrl.keyPress({'keyPressed': 7})">
+            </div>
+            <div class="atm-numeric-button">
+                <input type="button" id="keypadButton8" value="8" ng-click="$ctrl.keyPress({'keyPressed': 8})">
+            </div>
+            <div class="atm-numeric-button">
+                <input type="button" id="keypadButton9" value="9" ng-click="$ctrl.keyPress({'keyPressed': 9})">
             </div>
         </div>
         <div class="number-pad-row">
             <div class="atm-numeric-button">
             </div>
             <div class="atm-numeric-button">
-                <input type="button" id="keypadButton0" value="0" ng-click="$ctrl.processNumberPadKeyPress({'keyPressed': 0})">
+                <input type="button" id="keypadButton0" value="0" ng-click="$ctrl.keyPress({'keyPressed': 0})">
             </div>
             <div class="atm-numeric-button">
             </div>
@@ -45,13 +45,13 @@
     </div>
     <div class="number-pad-actions">
         <div class="atm-button">
-            <input type="button" id="cancelButton" value="CANCEL">
+            <input type="button" id="cancelButton" value="CANCEL" ng-click="$ctrl.keyPress({'keyPressed': 'CANCEL'})">
         </div>
         <div class="atm-button">
-            <input type="button" id="clearButton" value="CLEAR">
+            <input type="button" id="clearButton" value="CLEAR" ng-click="$ctrl.keyPress({'keyPressed': 'CLEAR'})">
         </div>
         <div class="atm-button">
-            <input type="button" id="enterButton" value="ENTER">
+            <input type="button" id="enterButton" value="ENTER" ng-click="$ctrl.keyPress({'keyPressed': 'ENTER'})">
         </div>
     </div>
 </div>
