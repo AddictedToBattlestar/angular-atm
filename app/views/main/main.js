@@ -53,6 +53,7 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop'])
                     ctrl.currentDisplay = 'enterPinNumber-Complete';
                     break;
             }
+            console.log('PIN entered at present: ' + ctrl.pinEntered);
             ctrl.keysPressed++;
         }
     }]);
