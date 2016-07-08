@@ -10,8 +10,8 @@ var and = sugarFn('and');
 
 describe('atm-machine-kata', function () {
     var subject;
-    var mockAtmDisplay, mockAtmCardSlot, mockCustomerAccountApi;
-    var fakeAtmCard;
+    var mockAtmDisplay, mockAtmCardSlot, mockAtmPrinter, mockCustomerAccountApi;
+    var fakeAtmCard, fakeAccountBalanceResponse;
 
     beforeEach(module('myApp.atmMachineKata'));
     beforeEach(function () {
@@ -20,6 +20,7 @@ describe('atm-machine-kata', function () {
         module(function ($provide) {
             $provide.value('atmDisplay', mockAtmDisplay);
             $provide.value('atmCardSlot', mockAtmCardSlot);
+            $provide.value('atmPrinter', mockAtmPrinter);
             $provide.value('customerAccountApi', mockCustomerAccountApi);
         });
     });
@@ -123,7 +124,7 @@ describe('atm-machine-kata', function () {
                     beforeEach(function() {
                         mockAtmDisplay.show.calls.reset();
                         //noinspection JSUnresolvedVariable,JSUnresolvedFunction
-                        mockCustomerAccountApi.getBalance.and.returnValue(99.25);
+                        mockCustomerAccountApi.getBalance.and.returnValue(fakeAccountBalanceResponse);
                         subject.showAccountBalance();
                     });
 
@@ -135,21 +136,47 @@ describe('atm-machine-kata', function () {
                     it('then displays the customers account balance', function () {
                         expect(mockAtmDisplay.show).toHaveBeenCalledWith('displayAccountBalance', 99.25);
                     });
+                });
 
-                })
+                when('selecting to have their account balance printed', function() {
+                    beforeEach(function() {
+                        mockAtmDisplay.show.calls.reset();
+                        //noinspection JSUnresolvedVariable,JSUnresolvedFunction
+                        mockCustomerAccountApi.getBalance.and.returnValue(fakeAccountBalanceResponse);
+                        subject.printAccountBalance();
+                    });
+
+                    it('requests the customers account balance from the api', function() {
+                        //noinspection JSUnresolvedVariable
+                        expect(mockCustomerAccountApi.getBalance).toHaveBeenCalledWith(fakeAtmCard.accountNumber);
+                    });
+
+                    it('displays a welcome screen', function () {
+                        expect(mockAtmDisplay.show).toHaveBeenCalledWith('welcome')
+                    });
+
+                    it('prints the account balance for the customer', function() {
+                       expect(mockAtmPrinter.printBalance).toHaveBeenCalledWith(fakeAccountBalanceResponse)
+                    });
+                });
             });
         });
-
     });
 
     function initMocksAndFakes() {
         mockAtmDisplay = {show: jasmine.createSpy()};
         mockAtmCardSlot = {ejectCard: jasmine.createSpy()};
+        mockAtmPrinter = {printBalance: jasmine.createSpy()};
         mockCustomerAccountApi = jasmine.createSpyObj('customerAccountApi', ['getBalance']);
         fakeAtmCard = {
             type: 'atmCard',
             pin: 1234,
             accountNumber: 1234567890
         };
+        fakeAccountBalanceResponse = {
+            customerName: 'Joe Smith',
+            accountNumber: 1234567890,
+            balance: 99.25
+        }
     }
 });
