@@ -1,16 +1,15 @@
-angular.
-module('myApp.atmMachineKata', []).
-factory('atmMachineKataService', ['atmCardSlot', 'atmPrinter', 'customerAccountApi',  function(atmCardSlot, atmPrinter, customerAccountApi) {
+angular.module('myApp.atmMachineKata', []).factory('atmMachineKataService', ['atmCardSlot', 'atmPrinter', 'customerAccountApi', function (atmCardSlot, atmPrinter, customerAccountApi) {
     var service = this;
-    service.cardInserted = {};
+    var cardInserted = {};
+
     service.currentlyDisplayed = {
         name: 'welcome',
         params: {}
     };
 
-    service.atmCardInserted = function(card) {
-        service.cardInserted = card;
-        if(isValidAtmCard(card)) {
+    service.atmCardInserted = function (card) {
+        cardInserted = card;
+        if (isValidAtmCard(card)) {
             service.currentlyDisplayed.name = 'promptForPin';
         } else {
             ejectCardInserted();
@@ -18,8 +17,8 @@ factory('atmMachineKataService', ['atmCardSlot', 'atmPrinter', 'customerAccountA
         }
     };
 
-    service.submitPin = function(pinNumber) {
-        if(pinNumber === service.cardInserted.pin) {
+    service.submitPin = function (pinNumber) {
+        if (pinNumber === cardInserted.pin) {
             service.currentlyDisplayed.name = 'selectTransaction';
         } else {
             ejectCardInserted();
@@ -27,18 +26,18 @@ factory('atmMachineKataService', ['atmCardSlot', 'atmPrinter', 'customerAccountA
         }
     };
 
-    service.cancel = function() {
+    service.cancel = function () {
         ejectCardInserted();
         service.currentlyDisplayed.name = 'welcome';
     };
 
-    service.startWithdrawal = function() {
+    service.startWithdrawal = function () {
         service.currentlyDisplayed.name = 'selectBalanceOutput';
     };
-    
-    service.showAccountBalance = function() {
+
+    service.showAccountBalance = function () {
         //noinspection JSUnresolvedFunction
-        var accountBalanceResponse = customerAccountApi.getBalance(service.cardInserted.accountNumber);
+        var accountBalanceResponse = customerAccountApi.getBalance(cardInserted.accountNumber);
         service.currentlyDisplayed = {
             name: 'displayAccountBalance',
             params: {
@@ -46,18 +45,19 @@ factory('atmMachineKataService', ['atmCardSlot', 'atmPrinter', 'customerAccountA
             }
         };
     };
-    
-    service.printAccountBalance = function() {
+
+    service.printAccountBalance = function () {
         //noinspection JSUnresolvedFunction
-        var accountBalanceResponse = customerAccountApi.getBalance(service.cardInserted.accountNumber);
+        var accountBalanceResponse = customerAccountApi.getBalance(cardInserted.accountNumber);
         atmPrinter.printBalance(accountBalanceResponse);
         service.currentlyDisplayed.name = 'welcome';
     };
 
     function ejectCardInserted() {
-        atmCardSlot.ejectCard(service.cardInserted);
-        service.cardInserted = {};
+        atmCardSlot.ejectCard(cardInserted);
+        cardInserted = {};
     }
+
     function isValidAtmCard(card) {
         return card && card.type === 'atmCard';
     }

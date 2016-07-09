@@ -114,14 +114,14 @@ describe('atm-machine-kata', function () {
                     expect(subject.currentlyDisplayed.name).toEqual('selectBalanceOutput');
                 });
 
-                when('selecting to have their account balance shown on the screen', function() {
-                    beforeEach(function() {
+                when('selecting to have their account balance shown on the screen', function () {
+                    beforeEach(function () {
                         //noinspection JSUnresolvedVariable,JSUnresolvedFunction
                         mockCustomerAccountApi.getBalance.and.returnValue(fakeAccountBalanceResponse);
                         subject.showAccountBalance();
                     });
 
-                    it('requests the customers account balance from the api', function() {
+                    it('requests the customers account balance from the api', function () {
                         //noinspection JSUnresolvedVariable
                         expect(mockCustomerAccountApi.getBalance).toHaveBeenCalledWith(fakeAtmCard.accountNumber);
                     });
@@ -133,14 +133,14 @@ describe('atm-machine-kata', function () {
                     });
                 });
 
-                when('selecting to have their account balance printed', function() {
-                    beforeEach(function() {
+                when('selecting to have their account balance printed', function () {
+                    beforeEach(function () {
                         //noinspection JSUnresolvedVariable,JSUnresolvedFunction
                         mockCustomerAccountApi.getBalance.and.returnValue(fakeAccountBalanceResponse);
                         subject.printAccountBalance();
                     });
 
-                    it('requests the customers account balance from the api', function() {
+                    it('requests the customers account balance from the api', function () {
                         //noinspection JSUnresolvedVariable
                         expect(mockCustomerAccountApi.getBalance).toHaveBeenCalledWith(fakeAtmCard.accountNumber);
                     });
@@ -149,8 +149,8 @@ describe('atm-machine-kata', function () {
                         expect(subject.currentlyDisplayed.name).toEqual('welcome')
                     });
 
-                    it('prints the account balance for the customer', function() {
-                       expect(mockAtmPrinter.printBalance).toHaveBeenCalledWith(fakeAccountBalanceResponse)
+                    it('prints the account balance for the customer', function () {
+                        expect(mockAtmPrinter.printBalance).toHaveBeenCalledWith(fakeAccountBalanceResponse)
                     });
                 });
             });
