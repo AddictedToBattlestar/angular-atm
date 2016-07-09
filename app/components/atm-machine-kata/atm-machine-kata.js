@@ -6,8 +6,9 @@ angular.module('myApp.atmMachineKata', []).factory('atmMachineKataService', ['at
         name: 'welcome',
         params: {}
     };
-
-    service.atmCardInserted = function (card) {
+    
+    //noinspection JSUnresolvedFunction
+    atmCardSlot.subscribeToAtmCardInserted(function (card) {
         cardInserted = card;
         if (isValidAtmCard(card)) {
             service.currentlyDisplayed.name = 'promptForPin';
@@ -15,7 +16,7 @@ angular.module('myApp.atmMachineKata', []).factory('atmMachineKataService', ['at
             ejectCardInserted();
             service.currentlyDisplayed.name = 'invalidCardInserted';
         }
-    };
+    });
 
     service.submitPin = function (pinNumber) {
         if (pinNumber === cardInserted.pin) {

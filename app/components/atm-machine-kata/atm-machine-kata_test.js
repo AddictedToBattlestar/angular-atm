@@ -37,7 +37,8 @@ describe('atm-machine-kata', function () {
 
         when('an ATM card is inserted', function () {
             beforeEach(function () {
-                subject.atmCardInserted(fakeAtmCard);
+                var cardInsertedSubscriber = mockAtmCardSlot.subscribeToAtmCardInserted.calls.mostRecent().args[0];
+                cardInsertedSubscriber(fakeAtmCard);
             });
 
             it('shows a prompt to the customer asking them to input their PIN number', function () {
@@ -49,7 +50,8 @@ describe('atm-machine-kata', function () {
                     someRandomKey: 'someRandomValue'
                 };
                 beforeEach(function () {
-                    subject.atmCardInserted(fakeUnRecognizedCard);
+                    var cardInsertedSubscriber = mockAtmCardSlot.subscribeToAtmCardInserted.calls.mostRecent().args[0];
+                    cardInsertedSubscriber(fakeUnRecognizedCard);
                 });
 
                 it('shows a message stating that the card is not valid', function () {
@@ -88,7 +90,8 @@ describe('atm-machine-kata', function () {
 
         when('the transaction screen is shown', function () {
             beforeEach(function () {
-                subject.atmCardInserted(fakeAtmCard);
+                var cardInsertedSubscriber = mockAtmCardSlot.subscribeToAtmCardInserted.calls.mostRecent().args[0];
+                cardInsertedSubscriber(fakeAtmCard);
             });
 
             and('the customer selects "cancel"', function () {
@@ -158,7 +161,7 @@ describe('atm-machine-kata', function () {
     });
 
     function initMocksAndFakes() {
-        mockAtmCardSlot = {ejectCard: jasmine.createSpy()};
+        mockAtmCardSlot = jasmine.createSpyObj('atmCardSlot', ['ejectCard', 'subscribeToAtmCardInserted']);
         mockAtmPrinter = {printBalance: jasmine.createSpy()};
         mockCustomerAccountApi = jasmine.createSpyObj('customerAccountApi', ['getBalance']);
         fakeAtmCard = {
