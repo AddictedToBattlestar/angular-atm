@@ -10,7 +10,7 @@ var and = sugarFn('and');
 
 describe('atm-machine-kata', function () {
     var subject;
-    var mockAtmDisplay, mockAtmCardSlot, mockAtmPrinter, mockCustomerAccountApi;
+    var mockAtmCardSlot, mockAtmPrinter, mockCustomerAccountApi;
     var fakeAtmCard, fakeAccountBalanceResponse;
 
     beforeEach(module('myApp.atmMachineKata'));
@@ -18,7 +18,6 @@ describe('atm-machine-kata', function () {
         initMocksAndFakes();
 
         module(function ($provide) {
-            $provide.value('atmDisplay', mockAtmDisplay);
             $provide.value('atmCardSlot', mockAtmCardSlot);
             $provide.value('atmPrinter', mockAtmPrinter);
             $provide.value('customerAccountApi', mockCustomerAccountApi);
@@ -33,17 +32,16 @@ describe('atm-machine-kata', function () {
         });
 
         it('displays a welcome screen', function () {
-            expect(mockAtmDisplay.show).toHaveBeenCalledWith('welcome')
+            expect(subject.currentlyDisplayed.name).toEqual('welcome')
         });
 
         when('an ATM card is inserted', function () {
             beforeEach(function () {
-                mockAtmDisplay.show.calls.reset();
                 subject.atmCardInserted(fakeAtmCard);
             });
 
             it('shows a prompt to the customer asking them to input their PIN number', function () {
-                expect(mockAtmDisplay.show).toHaveBeenCalledWith('promptForPin');
+                expect(subject.currentlyDisplayed.name).toEqual('promptForPin');
             });
 
             and('an invalid card is inserted', function () {
@@ -51,12 +49,11 @@ describe('atm-machine-kata', function () {
                     someRandomKey: 'someRandomValue'
                 };
                 beforeEach(function () {
-                    mockAtmDisplay.show.calls.reset();
                     subject.atmCardInserted(fakeUnRecognizedCard);
                 });
 
                 it('shows a message stating that the card is not valid', function () {
-                    expect(mockAtmDisplay.show).toHaveBeenCalledWith('invalidCardInserted');
+                    expect(subject.currentlyDisplayed.name).toEqual('invalidCardInserted');
                 });
 
                 it('returns the inserted card back to the customer', function () {
@@ -66,23 +63,21 @@ describe('atm-machine-kata', function () {
 
             and('the correct PIN number is entered', function () {
                 beforeEach(function () {
-                    mockAtmDisplay.show.calls.reset();
                     subject.submitPin(fakeAtmCard.pin);
                 });
 
                 it('shows a screen with transactions that are allowed', function () {
-                    expect(mockAtmDisplay.show).toHaveBeenCalledWith('selectTransaction');
+                    expect(subject.currentlyDisplayed.name).toEqual('selectTransaction');
                 });
             });
 
             and('the wrong PIN number is entered', function () {
                 beforeEach(function () {
-                    mockAtmDisplay.show.calls.reset();
                     subject.submitPin(1111);
                 });
 
                 it('show a screen with transactions that are allowed', function () {
-                    expect(mockAtmDisplay.show).toHaveBeenCalledWith('invalidPinEntered');
+                    expect(subject.currentlyDisplayed.name).toEqual('invalidPinEntered');
                 });
 
                 it('returns the inserted card back to the customer', function () {
@@ -93,7 +88,6 @@ describe('atm-machine-kata', function () {
 
         when('the transaction screen is shown', function () {
             beforeEach(function () {
-                mockAtmDisplay.show.calls.reset();
                 subject.atmCardInserted(fakeAtmCard);
             });
 
@@ -107,7 +101,7 @@ describe('atm-machine-kata', function () {
                 });
 
                 it('displays a welcome screen ', function () {
-                    expect(mockAtmDisplay.show).toHaveBeenCalledWith('welcome')
+                    expect(subject.currentlyDisplayed.name).toEqual('welcome')
                 });
             });
 
@@ -117,12 +111,11 @@ describe('atm-machine-kata', function () {
                 });
 
                 it('displays a screen asking how they would like their balance provided', function () {
-                    expect(mockAtmDisplay.show).toHaveBeenCalledWith('selectBalanceOutput');
+                    expect(subject.currentlyDisplayed.name).toEqual('selectBalanceOutput');
                 });
 
                 when('selecting to have their account balance shown on the screen', function() {
                     beforeEach(function() {
-                        mockAtmDisplay.show.calls.reset();
                         //noinspection JSUnresolvedVariable,JSUnresolvedFunction
                         mockCustomerAccountApi.getBalance.and.returnValue(fakeAccountBalanceResponse);
                         subject.showAccountBalance();
@@ -134,13 +127,14 @@ describe('atm-machine-kata', function () {
                     });
 
                     it('then displays the customers account balance', function () {
-                        expect(mockAtmDisplay.show).toHaveBeenCalledWith('displayAccountBalance', 99.25);
+                        expect(subject.currentlyDisplayed.name).toEqual('displayAccountBalance');
+                        expect(subject.currentlyDisplayed.params.accountBalance).toEqual(99.25);
+
                     });
                 });
 
                 when('selecting to have their account balance printed', function() {
                     beforeEach(function() {
-                        mockAtmDisplay.show.calls.reset();
                         //noinspection JSUnresolvedVariable,JSUnresolvedFunction
                         mockCustomerAccountApi.getBalance.and.returnValue(fakeAccountBalanceResponse);
                         subject.printAccountBalance();
@@ -152,7 +146,7 @@ describe('atm-machine-kata', function () {
                     });
 
                     it('displays a welcome screen', function () {
-                        expect(mockAtmDisplay.show).toHaveBeenCalledWith('welcome')
+                        expect(subject.currentlyDisplayed.name).toEqual('welcome')
                     });
 
                     it('prints the account balance for the customer', function() {
@@ -164,7 +158,6 @@ describe('atm-machine-kata', function () {
     });
 
     function initMocksAndFakes() {
-        mockAtmDisplay = {show: jasmine.createSpy()};
         mockAtmCardSlot = {ejectCard: jasmine.createSpy()};
         mockAtmPrinter = {printBalance: jasmine.createSpy()};
         mockCustomerAccountApi = jasmine.createSpyObj('customerAccountApi', ['getBalance']);

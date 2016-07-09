@@ -1,49 +1,57 @@
 angular.
 module('myApp.atmMachineKata', []).
-factory('atmMachineKataService', ['atmDisplay', 'atmCardSlot', 'atmPrinter', 'customerAccountApi',  function(atmDisplay, atmCardSlot, atmPrinter, customerAccountApi) {
+factory('atmMachineKataService', ['atmCardSlot', 'atmPrinter', 'customerAccountApi',  function(atmCardSlot, atmPrinter, customerAccountApi) {
     var service = this;
     service.cardInserted = {};
-    atmDisplay.show('welcome');
+    service.currentlyDisplayed = {
+        name: 'welcome',
+        params: {}
+    };
 
     service.atmCardInserted = function(card) {
         service.cardInserted = card;
         if(isValidAtmCard(card)) {
-            atmDisplay.show('promptForPin');
+            service.currentlyDisplayed.name = 'promptForPin';
         } else {
             ejectCardInserted();
-            atmDisplay.show('invalidCardInserted');
+            service.currentlyDisplayed.name = 'invalidCardInserted';
         }
     };
 
     service.submitPin = function(pinNumber) {
         if(pinNumber === service.cardInserted.pin) {
-            atmDisplay.show('selectTransaction');
+            service.currentlyDisplayed.name = 'selectTransaction';
         } else {
             ejectCardInserted();
-            atmDisplay.show('invalidPinEntered');
+            service.currentlyDisplayed.name = 'invalidPinEntered';
         }
     };
 
     service.cancel = function() {
         ejectCardInserted();
-        atmDisplay.show('welcome');
+        service.currentlyDisplayed.name = 'welcome';
     };
 
     service.startWithdrawal = function() {
-        atmDisplay.show('selectBalanceOutput');
+        service.currentlyDisplayed.name = 'selectBalanceOutput';
     };
     
     service.showAccountBalance = function() {
         //noinspection JSUnresolvedFunction
         var accountBalanceResponse = customerAccountApi.getBalance(service.cardInserted.accountNumber);
-        atmDisplay.show('displayAccountBalance', accountBalanceResponse.balance);
+        service.currentlyDisplayed = {
+            name: 'displayAccountBalance',
+            params: {
+                accountBalance: accountBalanceResponse.balance
+            }
+        };
     };
     
     service.printAccountBalance = function() {
         //noinspection JSUnresolvedFunction
         var accountBalanceResponse = customerAccountApi.getBalance(service.cardInserted.accountNumber);
         atmPrinter.printBalance(accountBalanceResponse);
-        atmDisplay.show('welcome');
+        service.currentlyDisplayed.name = 'welcome';
     };
 
     function ejectCardInserted() {
