@@ -1,25 +1,35 @@
-angular.module('myApp.atmMachine', []).factory('atmMachineService', ['atmCardSlot', 'atmPrinter', 'customerAccountApi', function (atmCardSlot, atmPrinter, customerAccountApi) {
-    var service = this;
-    var cardInserted = {};
+//  atmCardSlot:
+//      --> atmCardInserted(card)
+//      <-- cardInserted (null)
 
+//  atmPrinter
+//      <-- printerQueue (array to pop once printed)
+
+//  customerAccountApi
+//      getBalance(accountNumber);
+
+angular.module('myApp.atmMachine', []).factory('atmMachineService', ['customerAccountApi', function (customerAccountApi) {
+    var service = {};
+    service.cardInserted = {};
+    service.printerQueue = [];
     service.currentlyDisplayed = {
         name: 'welcome',
         params: {}
     };
     
     //noinspection JSUnresolvedFunction
-    atmCardSlot.subscribeToAtmCardInserted(function (card) {
-        cardInserted = card;
+    service.atmCardInserted = function(card) {
+        service.cardInserted = card;
         if (isValidAtmCard(card)) {
             service.currentlyDisplayed.name = 'promptForPin';
         } else {
             ejectCardInserted();
             service.currentlyDisplayed.name = 'invalidCardInserted';
         }
-    });
+    };
 
     service.submitPin = function (pinNumber) {
-        if (pinNumber === cardInserted.pin) {
+        if (pinNumber === service.cardInserted.pin) {
             service.currentlyDisplayed.name = 'selectTransaction';
         } else {
             ejectCardInserted();
@@ -38,7 +48,7 @@ angular.module('myApp.atmMachine', []).factory('atmMachineService', ['atmCardSlo
 
     service.showAccountBalance = function () {
         //noinspection JSUnresolvedFunction
-        var accountBalanceResponse = customerAccountApi.getBalance(cardInserted.accountNumber);
+        var accountBalanceResponse = customerAccountApi.getBalance(service.cardInserted.accountNumber);
         service.currentlyDisplayed = {
             name: 'displayAccountBalance',
             params: {
@@ -49,14 +59,13 @@ angular.module('myApp.atmMachine', []).factory('atmMachineService', ['atmCardSlo
 
     service.printAccountBalance = function () {
         //noinspection JSUnresolvedFunction
-        var accountBalanceResponse = customerAccountApi.getBalance(cardInserted.accountNumber);
-        atmPrinter.printBalance(accountBalanceResponse);
+        var accountBalanceResponse = customerAccountApi.getBalance(service.cardInserted.accountNumber);
+        service.printerQueue.push(accountBalanceResponse);
         service.currentlyDisplayed.name = 'welcome';
     };
 
     function ejectCardInserted() {
-        atmCardSlot.ejectCard(cardInserted);
-        cardInserted = {};
+        service.cardInserted = {};
     }
 
     function isValidAtmCard(card) {

@@ -37,8 +37,7 @@ describe('atm-machine', function () {
 
         when('an ATM card is inserted', function () {
             beforeEach(function () {
-                var cardInsertedSubscriber = mockAtmCardSlot.subscribeToAtmCardInserted.calls.mostRecent().args[0];
-                cardInsertedSubscriber(fakeAtmCard);
+                subject.atmCardInserted(fakeAtmCard);
             });
 
             it('shows a prompt to the customer asking them to input their PIN number', function () {
@@ -50,8 +49,7 @@ describe('atm-machine', function () {
                     someRandomKey: 'someRandomValue'
                 };
                 beforeEach(function () {
-                    var cardInsertedSubscriber = mockAtmCardSlot.subscribeToAtmCardInserted.calls.mostRecent().args[0];
-                    cardInsertedSubscriber(fakeUnRecognizedCard);
+                    subject.atmCardInserted(fakeUnRecognizedCard);
                 });
 
                 it('shows a message stating that the card is not valid', function () {
@@ -59,7 +57,7 @@ describe('atm-machine', function () {
                 });
 
                 it('returns the inserted card back to the customer', function () {
-                    expect(mockAtmCardSlot.ejectCard).toHaveBeenCalledWith(fakeUnRecognizedCard);
+                    expect(subject.cardInserted).toEqual({});
                 });
             });
 
@@ -83,15 +81,14 @@ describe('atm-machine', function () {
                 });
 
                 it('returns the inserted card back to the customer', function () {
-                    expect(mockAtmCardSlot.ejectCard).toHaveBeenCalledWith(fakeAtmCard);
+                    expect(subject.cardInserted).toEqual({});
                 });
             });
         });
 
         when('the transaction screen is shown', function () {
             beforeEach(function () {
-                var cardInsertedSubscriber = mockAtmCardSlot.subscribeToAtmCardInserted.calls.mostRecent().args[0];
-                cardInsertedSubscriber(fakeAtmCard);
+                subject.atmCardInserted(fakeAtmCard);
             });
 
             and('the customer selects "cancel"', function () {
@@ -100,7 +97,7 @@ describe('atm-machine', function () {
                 });
 
                 it('returns the inserted card back to the customer', function () {
-                    expect(mockAtmCardSlot.ejectCard).toHaveBeenCalledWith(fakeAtmCard);
+                    expect(subject.cardInserted).toEqual({});
                 });
 
                 it('displays a welcome screen ', function () {
@@ -138,8 +135,10 @@ describe('atm-machine', function () {
 
                 when('selecting to have their account balance printed', function () {
                     beforeEach(function () {
+                        subject.printerQueue = [];
                         //noinspection JSUnresolvedVariable,JSUnresolvedFunction
                         mockCustomerAccountApi.getBalance.and.returnValue(fakeAccountBalanceResponse);
+
                         subject.printAccountBalance();
                     });
 
@@ -149,11 +148,11 @@ describe('atm-machine', function () {
                     });
 
                     it('displays a welcome screen', function () {
-                        expect(subject.currentlyDisplayed.name).toEqual('welcome')
+                        expect(subject.currentlyDisplayed.name).toEqual('welcome');
                     });
 
                     it('prints the account balance for the customer', function () {
-                        expect(mockAtmPrinter.printBalance).toHaveBeenCalledWith(fakeAccountBalanceResponse)
+                        expect(subject.printerQueue[0]).toEqual(fakeAccountBalanceResponse);
                     });
                 });
             });
@@ -161,7 +160,6 @@ describe('atm-machine', function () {
     });
 
     function initMocksAndFakes() {
-        mockAtmCardSlot = jasmine.createSpyObj('atmCardSlot', ['ejectCard', 'subscribeToAtmCardInserted']);
         mockAtmPrinter = {printBalance: jasmine.createSpy()};
         mockCustomerAccountApi = jasmine.createSpyObj('customerAccountApi', ['getBalance']);
         fakeAtmCard = {
