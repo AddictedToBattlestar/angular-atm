@@ -1,4 +1,4 @@
-angular.module('myApp.atmMachineKata', []).factory('atmMachineKataService', ['atmCardSlot', 'atmPrinter', 'customerAccountApi', function (atmCardSlot, atmPrinter, customerAccountApi) {
+angular.module('myApp.atmMachine', []).factory('atmMachineService', ['atmCardSlot', 'atmPrinter', 'customerAccountApi', function (atmCardSlot, atmPrinter, customerAccountApi) {
     var service = this;
     var cardInserted = {};
 

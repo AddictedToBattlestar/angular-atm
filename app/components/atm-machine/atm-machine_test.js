@@ -8,12 +8,12 @@ var sugarFn = function (term) {
 var when = sugarFn('when');
 var and = sugarFn('and');
 
-describe('atm-machine-kata', function () {
+describe('atm-machine', function () {
     var subject;
     var mockAtmCardSlot, mockAtmPrinter, mockCustomerAccountApi;
     var fakeAtmCard, fakeAccountBalanceResponse;
 
-    beforeEach(module('myApp.atmMachineKata'));
+    beforeEach(module('myApp.atmMachine'));
     beforeEach(function () {
         initMocksAndFakes();
 
@@ -27,7 +27,7 @@ describe('atm-machine-kata', function () {
     when('started', function () {
         beforeEach(function () {
             inject(function ($injector) {
-                subject = $injector.get('atmMachineKataService');
+                subject = $injector.get('atmMachineService');
             });
         });
 
