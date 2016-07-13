@@ -11,13 +11,13 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop'])
 
     .controller('MainCtrl', [function () {
         var ctrl = this;
-        
+
         ctrl.customerAtmCard = {
             'cardType': 'atmCard',
             'cardNumber': 123457898765432,
             'PIN': '1234'
         };
-        ctrl.showCustomerAtmCard = true;        
+        ctrl.showCustomerAtmCard = true;
         ctrl.cardInserted = null;
         ctrl.processCardInserted = function (data, event) {
             console.log('drop works');
@@ -34,7 +34,7 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop'])
         ctrl.correctPinEntered = false;
         ctrl.numberPadKeyClick = function (keyPressed) {
             console.log('A key press of ' + keyPressed + ' was registered');
-            if(!ctrl.cardInserted) return;
+            if (!ctrl.cardInserted) return;
             if (keyPressed === 'ENTER') {
                 ctrl.enterButtonClick();
             } else if (keyPressed === 'CLEAR') {
@@ -52,7 +52,7 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop'])
             }
         }
 
-        ctrl.processNumberKey = function(keyPressed) {
+        ctrl.processNumberKey = function (keyPressed) {
             switch (ctrl.keysPressed) {
                 case 0:
                     ctrl.pinEntered = keyPressed;
@@ -76,7 +76,7 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop'])
             ctrl.keysPressed++;
         }
 
-        ctrl.enterButtonClick = function() {
+        ctrl.enterButtonClick = function () {
             if (ctrl.correctPinEntered) ctrl.currentDisplay = 'selectTransaction';
         }
     }]);
