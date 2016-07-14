@@ -1,3 +1,4 @@
+'use strict';
 //  atmCardSlot:
 //      --> atmCardInserted(card)
 //      <-- cardInserted (null)
@@ -8,7 +9,8 @@
 //  customerAccountApi
 //      getBalance(accountNumber);
 
-angular.module('myApp.atmMachine', []).factory('atmMachineService', ['customerAccountApi', function (customerAccountApi) {
+angular.module('myApp.atmMachine', []).
+factory('atmMachineService', ['customerAccountApi', function (customerAccountApi) {
     var service = {};
     service.cardInserted = {};
     service.printerQueue = [];
@@ -16,9 +18,9 @@ angular.module('myApp.atmMachine', []).factory('atmMachineService', ['customerAc
         name: 'welcome',
         params: {}
     };
-    
+
     //noinspection JSUnresolvedFunction
-    service.atmCardInserted = function(card) {
+    service.atmCardInserted = function (card) {
         service.cardInserted = card;
         if (isValidAtmCard(card)) {
             service.currentlyDisplayed.name = 'promptForPin';
