@@ -9,8 +9,8 @@
 //  customerAccountApi
 //      getBalance(accountNumber);
 
-angular.module('myApp.atmMachine', []).
-factory('atmMachineService', ['customerAccountApi', function (customerAccountApi) {
+angular.module('myApp.atmMachine', ['myApp.customerAccountApi']).
+factory('atmMachineService', ['customerAccountApiService', function (customerAccountApiService) {
     var service = {};
     service.cardInserted = {};
     service.printerQueue = [];
@@ -50,7 +50,7 @@ factory('atmMachineService', ['customerAccountApi', function (customerAccountApi
 
     service.showAccountBalance = function () {
         //noinspection JSUnresolvedFunction
-        var accountBalanceResponse = customerAccountApi.getBalance(service.cardInserted.accountNumber);
+        var accountBalanceResponse = customerAccountApiService.getBalance(service.cardInserted.accountNumber);
         service.currentlyDisplayed = {
             name: 'displayAccountBalance',
             params: {
@@ -61,7 +61,7 @@ factory('atmMachineService', ['customerAccountApi', function (customerAccountApi
 
     service.printAccountBalance = function () {
         //noinspection JSUnresolvedFunction
-        var accountBalanceResponse = customerAccountApi.getBalance(service.cardInserted.accountNumber);
+        var accountBalanceResponse = customerAccountApiService.getBalance(service.cardInserted.accountNumber);
         service.printerQueue.push(accountBalanceResponse);
         service.currentlyDisplayed.name = 'welcome';
     };

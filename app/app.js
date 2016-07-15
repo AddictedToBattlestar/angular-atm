@@ -8,6 +8,8 @@ angular.module('myApp', [
     'myApp.main',
     'myApp.about',
     'myApp.version',
+    'myApp.customerAccountApi',
+    'myApp.atmMachine',
     'myApp.atmDisplay',
     'myApp.keyPad'
 ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {

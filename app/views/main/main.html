@@ -1,9 +1,9 @@
-<div ng-controller="MainCtrl as ctrl">
+<div>
     <div class="atm-panel">
         <div class="left-panel">
             <div class="atm-numeric-buttons-left">
                 <div class="atm-numeric-button">
-                    <input type="button" id="displayButton1" ng-click="ctrl.displayButtonClick">
+                    <input type="button" id="displayButton1">
                 </div>
                 <div class="atm-numeric-button">
                     <input type="button" id="displayButton2">
@@ -15,7 +15,7 @@
                     <input type="button" id="displaybutton4">
                 </div>
             </div>
-            <atm-display current-display="ctrl.currentDisplay"></atm-display>
+            <atm-display current-display="currentDisplay"></atm-display>
             <div class="atm-numeric-buttons-right">
                 <div class="atm-numeric-button">
                     <input type="button" id="displayButton5">
@@ -38,7 +38,7 @@
             </div>
             <div class="card-slot atm-control">
                 <div>CARD</div>
-                <div drop="ctrl.processCardInserted($data, $event)" drop-effect="copy" drop-accept="'json/custom-object'"></div>
+                <div drop="processCardInserted($data, $event)" drop-effect="copy" drop-accept="'json/custom-object'"></div>
                 <div><img id="insert-atm-card-label" src="assets/insert-atm-card-label.jpg" alt="insert-atm-card-label">
                 </div>
             </div>
@@ -60,15 +60,15 @@
     </div>
     <div class="atm-panel">
         <div class="left-panel">
-            <key-pad key-press="ctrl.numberPadKeyClick(keyPressed)"></key-pad>
+            <key-pad key-press="numberPadKeyClick(keyPressed)"></key-pad>
         </div>
         <div class="right-panel"></div>
     </div>
     <div class="atm-panel">
         <div class="left-panel"></div>
         <div class="right-panel" draggable="true" effect-allowed="copy" draggable-type="custom-object"
-             draggable-data="{{ctrl.customerAtmCard}}">
-            <img id="atm-card" src="assets/atm-card.jpeg" alt="atm-card" ng-show="ctrl.showCustomerAtmCard">
+             draggable-data="{{customerAtmCard}}">
+            <img id="atm-card" src="assets/atm-card.jpeg" alt="atm-card" ng-show="showCustomerAtmCard">
         </div>
     </div>
 </div>

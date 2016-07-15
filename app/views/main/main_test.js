@@ -1,16 +1,47 @@
 'use strict';
 
-describe('myApp.main module', function() {
+describe('myApp.main module', function () {
+    describe('MainCtrl controller', function() {
+        var subject, $scope;
+        var mockAtmMachineService;
 
-  beforeEach(module('myApp.main'));
+        beforeEach(function(){
+            module('myApp.main');
+            inject( function($injector){
+                mockAtmMachineService = $injector.get('atm-machine-service');
+                subject = $injector.get('$controller');
+                $scope = $injector.get('$scope');
+            });
+        });
 
-  describe('main controller', function(){
 
-    it('should ....', inject(function($controller) {
-      //spec body
-      var mainCtrl = $controller('MainCtrl');
-      expect(mainCtrl).toBeDefined();
-    }));
+        beforeEach(inject(function($rootScope, $controller) {
+            initMocksAndFakes();
 
-  });
+            subject = $controller('MainCtrl', {
+                $scope: $scope,
+                atmMachineService: mockAtmMachineService
+            });
+        }));
+
+        describe('main controller', function () {
+
+            it('should ....', inject(function ($controller) {
+                //spec body
+                expect(mainCtrl).toBeDefined();
+            }));
+
+        });
+
+        function initMocksAndFakes() {
+            mockAtmMachineService = jasmine.createSpyObj('atmMachineService', [
+                'atmCardInserted',
+                'submitPin',
+                'cancel',
+                'startWithdrawal',
+                'showAccountBalance',
+                'printAccountBalance'
+            ]);
+        }
+    });
 });

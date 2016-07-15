@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.main', ['ngRoute', 'draganddrop'])
+angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/', {
@@ -9,8 +9,8 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop'])
         });
     }])
 
-    .controller('MainCtrl', [function () {
-        var ctrl = this;
+    .controller('MainCtrl', ['$scope', 'atmMachineService', function ($scope, atmMachineService) {
+        var ctrl = $scope;
 
         ctrl.customerAtmCard = {
             'cardType': 'atmCard',
