@@ -11,22 +11,21 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
 
     .controller('MainCtrl', ['$scope', 'atmMachineService', function ($scope, atmMachineService) {
         var ctrl = $scope;
-
         ctrl.customerAtmCard = {
-            'cardType': 'atmCard',
+            'type': 'atmCard',
             'cardNumber': 123457898765432,
-            'PIN': '1234'
+            'pin': '1234'
         };
         ctrl.showCustomerAtmCard = true;
-        ctrl.cardInserted = null;
+        atmMachineService.registerShowCustomerAtmCardCallback(function(value) {
+            console.log('showCustomerAtmCard changed to '+ value);
+            ctrl.showCustomerAtmCard = value;
+        });
+
         ctrl.processCardInserted = function (data, event) {
             console.log('drop works');
             var insertedCard = data['json/custom-object'];
-            if (!insertedCard || insertedCard.cardType !== 'atmCard') return;
-            console.log('An ATM card was found to be inserted')
-            ctrl.currentDisplay = 'enterPinNumber';
-            ctrl.showCustomerAtmCard = false;
-            ctrl.cardInserted = ctrl.customerAtmCard;
+            atmMachineService.atmCardInserted(insertedCard);
         };
 
         ctrl.keysPressed = 0;
@@ -34,19 +33,17 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
         ctrl.correctPinEntered = false;
         ctrl.numberPadKeyClick = function (keyPressed) {
             console.log('A key press of ' + keyPressed + ' was registered');
-            if (!ctrl.cardInserted) return;
+            if (!atmMachineService.isValidAtmCardInserted()) return;
             if (keyPressed === 'ENTER') {
                 ctrl.enterButtonClick();
             } else if (keyPressed === 'CLEAR') {
                 ctrl.pinEntered = '';
                 ctrl.keysPressed = 0;
-                ctrl.currentDisplay = 'enterPinNumber';
+                atmMachineService.changeDisplay('promptForPin');
             } else if (keyPressed === 'CANCEL') {
                 ctrl.pinEntered = '';
                 ctrl.keysPressed = 0;
-                ctrl.currentDisplay = 'welcome';
-                ctrl.showCustomerAtmCard = true;
-                ctrl.cardInserted = null;
+                atmMachineService.cancel();
             } else {
                 ctrl.processNumberKey(keyPressed);
             }
@@ -56,20 +53,20 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
             switch (ctrl.keysPressed) {
                 case 0:
                     ctrl.pinEntered = keyPressed;
-                    ctrl.currentDisplay = 'enterPinNumber-1Character';
+                    atmMachineService.changeDisplay('enterPinNumber-1Character');
                     break;
                 case 1:
                     ctrl.pinEntered = ctrl.pinEntered + keyPressed;
-                    ctrl.currentDisplay = 'enterPinNumber-2Characters';
+                    atmMachineService.changeDisplay('enterPinNumber-2Characters');
                     break;
                 case 2:
                     ctrl.pinEntered = ctrl.pinEntered + keyPressed;
-                    ctrl.currentDisplay = 'enterPinNumber-3Characters';
+                    atmMachineService.changeDisplay('enterPinNumber-3Characters');
                     break;
                 case 3:
                     ctrl.pinEntered = ctrl.pinEntered + keyPressed;
-                    ctrl.currentDisplay = 'enterPinNumber-Complete';
-                    ctrl.correctPinEntered = (ctrl.pinEntered === ctrl.cardInserted.PIN);
+                    atmMachineService.changeDisplay('enterPinNumber-Complete');
+                    ctrl.correctPinEntered = (ctrl.pinEntered === atmMachineService.cardInserted.PIN);
                     break;
             }
             console.log('PIN entered at present: ' + ctrl.pinEntered);
@@ -77,6 +74,6 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
         }
 
         ctrl.enterButtonClick = function () {
-            if (ctrl.correctPinEntered) ctrl.currentDisplay = 'selectTransaction';
+            atmMachineService.submitPin(ctrl.pinEntered);
         }
     }]);

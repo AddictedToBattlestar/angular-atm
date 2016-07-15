@@ -12,19 +12,19 @@
     "row10": "                                 ",
     "row11": "                                 "
   },
-   "enterPinNumber": {
-     "row01": "                                 ",
-     "row02": "     Enter your four digit       ",
-     "row03": "     PIN number to continue      ",
-     "row04": "                                 ",
-     "row05": "                                 ",
-     "row06": "                                 ",
-     "row07": "                                 ",
-     "row08": "                                 ",
-     "row09": "                                 ",
-     "row10": "< CANCEL                         ",
-     "row11": "                                 "
-   },
+  "promptForPin": {
+    "row01": "                                 ",
+    "row02": "     Enter your four digit       ",
+    "row03": "     PIN number to continue      ",
+    "row04": "                                 ",
+    "row05": "                                 ",
+    "row06": "                                 ",
+    "row07": "                                 ",
+    "row08": "                                 ",
+    "row09": "                                 ",
+    "row10": "< CANCEL                         ",
+    "row11": "                                 "
+  },
   "enterPinNumber-1Character": {
     "row01": "                                 ",
     "row02": "     Enter your four digit       ",
@@ -88,6 +88,19 @@
     "row08": "                     WITHDRAWAL >",
     "row09": "                                 ",
     "row10": "                         CANCEL >",
+    "row11": "                                 "
+  },
+  "invalidPinEntered": {
+    "row01": "                                 ",
+    "row02": "      An Invalid PIN number      ",
+    "row03": "           was entered           ",
+    "row04": "                                 ",
+    "row05": "                                 ",
+    "row06": "                                 ",
+    "row07": "                                 ",
+    "row08": "                                 ",
+    "row09": "                                 ",
+    "row10": "                       CONTUNUE >",
     "row11": "                                 "
   }
 }

@@ -1,77 +1,88 @@
 'use strict';
-//  atmCardSlot:
-//      --> atmCardInserted(card)
-//      <-- cardInserted (null)
-
-//  atmPrinter
-//      <-- printerQueue (array to pop once printed)
-
-//  customerAccountApi
-//      getBalance(accountNumber);
 
 angular.module('myApp.atmMachine', ['myApp.customerAccountApi']).
 factory('atmMachineService', ['customerAccountApiService', function (customerAccountApiService) {
     var service = {};
     service.cardInserted = {};
     service.printerQueue = [];
-    service.currentlyDisplayed = {
-        name: 'welcome',
-        params: {}
+
+    var displayChangeCallbacks = [];
+    service.registerDisplayChangeCallback = function(callback){
+        displayChangeCallbacks.push(callback);
+    };
+
+    var showCustomerAtmCardCallbacks = [];
+    service.registerShowCustomerAtmCardCallback = function(callback){
+        showCustomerAtmCardCallbacks.push(callback);
     };
 
     //noinspection JSUnresolvedFunction
     service.atmCardInserted = function (card) {
+        console.log('atmMachineService.atmCardInserted');
         service.cardInserted = card;
+        changeShowCustomerAtmCard(false);
         if (isValidAtmCard(card)) {
-            service.currentlyDisplayed.name = 'promptForPin';
+            service.changeDisplay('promptForPin');
         } else {
             ejectCardInserted();
-            service.currentlyDisplayed.name = 'invalidCardInserted';
+            service.changeDisplay('invalidCardInserted');
         }
     };
 
     service.submitPin = function (pinNumber) {
         if (pinNumber === service.cardInserted.pin) {
-            service.currentlyDisplayed.name = 'selectTransaction';
+            service.changeDisplay('selectTransaction');
         } else {
             ejectCardInserted();
-            service.currentlyDisplayed.name = 'invalidPinEntered';
+            service.changeDisplay('invalidPinEntered');
         }
     };
 
     service.cancel = function () {
         ejectCardInserted();
-        service.currentlyDisplayed.name = 'welcome';
+        service.changeDisplay('welcome');
     };
 
     service.startWithdrawal = function () {
-        service.currentlyDisplayed.name = 'selectBalanceOutput';
+        service.changeDisplay('selectBalanceOutput');
     };
 
     service.showAccountBalance = function () {
         //noinspection JSUnresolvedFunction
         var accountBalanceResponse = customerAccountApiService.getBalance(service.cardInserted.accountNumber);
-        service.currentlyDisplayed = {
-            name: 'displayAccountBalance',
-            params: {
-                accountBalance: accountBalanceResponse.balance
-            }
-        };
+        service.changeDisplay('displayAccountBalance', { accountBalance: accountBalanceResponse.balance});
     };
 
     service.printAccountBalance = function () {
         //noinspection JSUnresolvedFunction
         var accountBalanceResponse = customerAccountApiService.getBalance(service.cardInserted.accountNumber);
         service.printerQueue.push(accountBalanceResponse);
-        service.currentlyDisplayed.name = 'welcome';
+        service.changeDisplay('welcome');
     };
+
+    service.changeDisplay = function(passedName, passedParams){
+        angular.forEach(displayChangeCallbacks, function(callback){
+            callback(passedName, passedParams);
+        });
+    }
+
+    service.isValidAtmCardInserted = function() {
+        return isValidAtmCard(service.cardInserted);
+    }
 
     function ejectCardInserted() {
         service.cardInserted = {};
+        changeShowCustomerAtmCard(true);
     }
 
     function isValidAtmCard(card) {
         return card && card.type === 'atmCard';
+    }
+
+    function changeShowCustomerAtmCard(value) {
+        angular.forEach(showCustomerAtmCardCallbacks, function(callback){
+            callback(value);
+        });
     }
 
     return service;

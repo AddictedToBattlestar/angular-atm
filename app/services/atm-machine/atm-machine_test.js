@@ -10,16 +10,15 @@ var and = sugarFn('and');
 
 describe('atm-machine', function () {
     var subject;
-    var mockAtmCardSlot, mockAtmPrinter, mockCustomerAccountApi;
+    var mockCustomerAccountApi, mockAtmPrinter;
     var fakeAtmCard, fakeAccountBalanceResponse;
+    var displayChangeCallbackSpy, showCustomerAtmCardCallbackSpy;
 
     beforeEach(module('myApp.atmMachine'));
     beforeEach(function () {
         initMocksAndFakes();
 
         module(function ($provide) {
-            $provide.value('atmCardSlot', mockAtmCardSlot);
-            $provide.value('atmPrinter', mockAtmPrinter);
             $provide.value('customerAccountApi', mockCustomerAccountApi);
         });
     });
@@ -27,7 +26,12 @@ describe('atm-machine', function () {
     when('started', function () {
         beforeEach(function () {
             inject(function ($injector) {
+                displayChangeCallbackSpy  = jasmine.createSpy('displayChangeCallbackSpy');
+                showCustomerAtmCardCallbackSpy  = jasmine.createSpy('showCustomerAtmCardCallbackSpy');
+
                 subject = $injector.get('atmMachineService');
+                subject.registerDisplayChangeCallback(displayChangeCallbackSpy);
+                subject.registerShowCustomerAtmCardCallback(showCustomerAtmCardCallbackSpy);
             });
         });
 
