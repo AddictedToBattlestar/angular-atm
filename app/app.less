@@ -27,7 +27,7 @@ atm-display {
   background-color: @light-grey;
   border: 1px solid black;
 }
-.atm-control {
+.atm-slot {
   div:nth-child(2) {
     border: 1px solid black;
     background-color: @control-grey-dark;
@@ -203,9 +203,10 @@ atm-display {
   }
 }
 
-.atm-control {
+.atm-slot {
   display: flex;
   flex-flow: column;
+  height: 100%;
   div:nth-child(1) {
     text-align: center;
   }

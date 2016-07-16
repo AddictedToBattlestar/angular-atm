@@ -32,13 +32,8 @@
             </div>
         </div>
         <div class="right-panel">
-            <div class="receipt-dispenser atm-control">
-                <div>RECEIPT</div>
-                <div>
-                    <div></div>
-                </div>
-            </div>
-            <div class="card-slot atm-control">
+            <atm-slot class="receipt-dispenser">RECEIPT</atm-slot>
+            <div class="card-slot atm-slot">
                 <div>CARD</div>
                 <div drop="processCardInserted($data, $event)" drop-effect="copy" drop-accept="'json/custom-object'">
                     <div></div>
@@ -50,20 +45,10 @@
     </div>
     <div class="atm-panel">
         <div class="left-panel">
-            <div class="cash-dispenser atm-control">
-                <div>CASH</div>
-                <div>
-                    <div></div>
-                </div>
-            </div>
+            <atm-slot class="cash-dispenser">CASH</atm-slot>
         </div>
         <div class="right-panel">
-            <div class="deposit-slot atm-control">
-                <div>DEPOSIT</div>
-                <div>
-                    <div></div>
-                </div>
-            </div>
+            <atm-slot class="deposit-slot">DEPOSIT</atm-slot>
         </div>
     </div>
     <div class="atm-panel">
