@@ -1,4 +1,5 @@
 @control-grey: #BFBFBF;
+@control-grey-dark: #ABABAB;
 @light-grey: #E0E0E0;
 @light-blue: #BBDEFB;
 @red: #F44336;
@@ -29,7 +30,11 @@ atm-display {
 .atm-control {
   div:nth-child(2) {
     border: 1px solid black;
-    background-color: white;
+    background-color: @control-grey-dark;
+    div {
+      border: 1px solid black;
+      background-color: white;
+    }
   }
 }
 .atm-numeric-button input[type="button"] {
@@ -206,6 +211,15 @@ atm-display {
   }
   div:nth-child(2) {
     flex-basis: 100%;
+    position: relative;
+    div {
+      height: 50%;
+      width: 95%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
   }
 }
 
