@@ -61,6 +61,7 @@ factory('atmMachineService', ['customerAccountApiService', function (customerAcc
     };
 
     service.changeDisplay = function(passedName, passedParams){
+        if (!passedParams) passedParams = {};
         angular.forEach(displayChangeCallbacks, function(callback){
             callback(passedName, passedParams);
         });

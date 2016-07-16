@@ -2,24 +2,19 @@
 
 describe('myApp.main module', function () {
     describe('MainCtrl controller', function() {
-        var subject, $scope;
+        var subject, scope;
         var mockAtmMachineService;
 
         beforeEach(function(){
+            module('myApp.atmMachine');
             module('myApp.main');
-            inject( function($injector){
-                mockAtmMachineService = $injector.get('atm-machine-service');
-                subject = $injector.get('$controller');
-                $scope = $injector.get('$scope');
-            });
         });
-
-
         beforeEach(inject(function($rootScope, $controller) {
+            scope = $rootScope.$new();
             initMocksAndFakes();
 
             subject = $controller('MainCtrl', {
-                $scope: $scope,
+                $scope: scope,
                 atmMachineService: mockAtmMachineService
             });
         }));
@@ -28,7 +23,7 @@ describe('myApp.main module', function () {
 
             it('should ....', inject(function ($controller) {
                 //spec body
-                expect(mainCtrl).toBeDefined();
+                expect(subject).toBeDefined();
             }));
 
         });
@@ -40,8 +35,10 @@ describe('myApp.main module', function () {
                 'cancel',
                 'startWithdrawal',
                 'showAccountBalance',
-                'printAccountBalance'
+                'printAccountBalance',
+                'registerShowCustomerAtmCardCallback'
             ]);
+
         }
     });
 });
