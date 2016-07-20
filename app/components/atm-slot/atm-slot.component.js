@@ -3,7 +3,9 @@
 angular.module('myApp.atmSlot', []).
 component('atmSlot', {
     templateUrl: 'components/atm-slot/atm-slot.template.html',
-    transclude: true,
+    bindings: {
+        header: '='
+    },
     controller: function atmSlotController() {
     }
 });
