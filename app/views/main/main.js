@@ -16,12 +16,6 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
             'cardNumber': 123457898765432,
             'pin': '1234'
         };
-        ctrl.headers = {
-            receipt: 'RECEIPT',
-            card: 'CARD',
-            deposit: 'DEPOSIT',
-            cash: 'CASH'
-        };
         ctrl.showCustomerAtmCard = true;
         atmMachineService.registerShowCustomerAtmCardCallback(function(value) {
             console.log('showCustomerAtmCard changed to '+ value);
