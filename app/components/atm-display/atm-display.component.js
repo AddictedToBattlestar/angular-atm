@@ -3,12 +3,12 @@
 angular.module('myApp.atmDisplay', ['myApp.atmMachine']).
 component('atmDisplay', {
     templateUrl: 'components/atm-display/atm-display.template.html',
-    controller: function AtmDisplayController($http, atmMachineService) {
+    controller: function AtmDisplayController($http, $log, atmMachineService) {
         var ctrl = this;
         ctrl.currentDisplay = '';
 
         atmMachineService.registerDisplayChangeCallback(function(displayName, params) {
-            console.log('display changed to "'+ displayName +'"');
+            $log.log('display changed to "'+ displayName +'"');
             ctrl.currentDisplay = displayName;
         });
 

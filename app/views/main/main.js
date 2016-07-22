@@ -9,7 +9,7 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
         });
     }])
 
-    .controller('MainCtrl', ['$scope', 'atmMachineService', function ($scope, atmMachineService) {
+    .controller('MainCtrl', ['$scope', '$log', 'atmMachineService', function ($scope, $log, atmMachineService) {
         var ctrl = $scope;
         ctrl.customerAtmCard = {
             'type': 'atmCard',
@@ -18,12 +18,12 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
         };
         ctrl.showCustomerAtmCard = true;
         atmMachineService.registerShowCustomerAtmCardCallback(function(value) {
-            console.log('showCustomerAtmCard changed to '+ value);
+            $log.log('showCustomerAtmCard changed to '+ value);
             ctrl.showCustomerAtmCard = value;
         });
 
         ctrl.processCardInserted = function (data, event) {
-            console.log('drop works');
+            $log.log('drop works');
             var insertedCard = data['json/custom-object'];
             atmMachineService.atmCardInserted(insertedCard);
         };
@@ -32,7 +32,7 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
         ctrl.pinEntered = 0;
         ctrl.correctPinEntered = false;
         ctrl.numberPadKeyClick = function (keyPressed) {
-            console.log('A key press of ' + keyPressed + ' was registered');
+            $log.log('A key press of ' + keyPressed + ' was registered');
             if (!atmMachineService.isValidAtmCardInserted()) return;
             if (keyPressed === 'ENTER') {
                 ctrl.enterButtonClick();
@@ -69,7 +69,7 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
                     ctrl.correctPinEntered = (ctrl.pinEntered === atmMachineService.cardInserted.PIN);
                     break;
             }
-            console.log('PIN entered at present: ' + ctrl.pinEntered);
+            $log.log('PIN entered at present: ' + ctrl.pinEntered);
             ctrl.keysPressed++;
         };
 

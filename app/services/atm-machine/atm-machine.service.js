@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('myApp.atmMachine', ['myApp.customerAccountApi']).
-factory('atmMachineService', ['customerAccountApiService', function (customerAccountApiService) {
+factory('atmMachineService', ['customerAccountApiService', '$log', function (customerAccountApiService, $log) {
     var service = {};
     service.cardInserted = {};
     service.printerQueue = [];
@@ -18,7 +18,7 @@ factory('atmMachineService', ['customerAccountApiService', function (customerAcc
 
     //noinspection JSUnresolvedFunction
     service.atmCardInserted = function (card) {
-        console.log('atmMachineService.atmCardInserted');
+        $log.log('atmMachineService.atmCardInserted');
         service.cardInserted = card;
         changeShowCustomerAtmCard(false);
         if (isValidAtmCard(card)) {
