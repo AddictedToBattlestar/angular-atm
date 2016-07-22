@@ -178,6 +178,6 @@ describe('atm-machine', function () {
             customerName: 'Joe Smith',
             accountNumber: 1234567890,
             balance: 99.25
-        }
+        };
     }
 });

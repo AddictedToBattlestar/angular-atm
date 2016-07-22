@@ -47,7 +47,7 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
             } else {
                 ctrl.processNumberKey(keyPressed);
             }
-        }
+        };
 
         ctrl.processNumberKey = function (keyPressed) {
             switch (ctrl.keysPressed) {
@@ -71,9 +71,9 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
             }
             console.log('PIN entered at present: ' + ctrl.pinEntered);
             ctrl.keysPressed++;
-        }
+        };
 
         ctrl.enterButtonClick = function () {
             atmMachineService.submitPin(ctrl.pinEntered);
-        }
+        };
     }]);

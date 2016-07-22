@@ -65,11 +65,11 @@ factory('atmMachineService', ['customerAccountApiService', function (customerAcc
         angular.forEach(displayChangeCallbacks, function(callback){
             callback(passedName, passedParams);
         });
-    }
+    };
 
     service.isValidAtmCardInserted = function() {
         return isValidAtmCard(service.cardInserted);
-    }
+    };
 
     function ejectCardInserted() {
         service.cardInserted = {};
