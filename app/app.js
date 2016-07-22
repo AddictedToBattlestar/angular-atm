@@ -12,7 +12,8 @@ angular.module('myApp', [
     'myApp.atmMachine',
     'myApp.atmDisplay',
     'myApp.keyPad',
-    'myApp.atmSlot'
+    'myApp.atmSlot',
+    'myApp.displayButtonPanel'
 ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('!');
 

@@ -17,8 +17,8 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
             'pin': '1234'
         };
         ctrl.showCustomerAtmCard = true;
-        atmMachineService.registerShowCustomerAtmCardCallback(function(value) {
-            $log.log('showCustomerAtmCard changed to '+ value);
+        atmMachineService.registerShowCustomerAtmCardCallback(function (value) {
+            $log.log('showCustomerAtmCard changed to ' + value);
             ctrl.showCustomerAtmCard = value;
         });
 
@@ -32,7 +32,7 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
         ctrl.pinEntered = 0;
         ctrl.correctPinEntered = false;
         ctrl.numberPadKeyClick = function (keyPressed) {
-            $log.log('A key press of ' + keyPressed + ' was registered');
+            $log.log('The ' + keyPressed + ' key was pressed');
             if (!atmMachineService.isValidAtmCardInserted()) return;
             if (keyPressed === 'ENTER') {
                 ctrl.enterButtonClick();
@@ -47,6 +47,14 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
             } else {
                 ctrl.processNumberKey(keyPressed);
             }
+        };
+
+        ctrl.displayButtonLeftKeyClick = function (keyPressed) {
+            $log.log('The ' + keyPressed + ' left display button was pressed');
+        };
+
+        ctrl.displayButtonRightKeyClick = function (keyPressed) {
+            $log.log('The ' + keyPressed + ' right display button was pressed');
         };
 
         ctrl.processNumberKey = function (keyPressed) {

@@ -1,35 +1,9 @@
 <div>
     <div class="atm-panel">
         <div class="left-panel">
-            <div class="atm-numeric-buttons-left">
-                <div class="atm-numeric-button">
-                    <input type="button" id="displayButton1">
-                </div>
-                <div class="atm-numeric-button">
-                    <input type="button" id="displayButton2">
-                </div>
-                <div class="atm-numeric-button">
-                    <input type="button" id="displayButton3">
-                </div>
-                <div class="atm-numeric-button">
-                    <input type="button" id="displaybutton4">
-                </div>
-            </div>
+            <display-button-panel class="atm-numeric-buttons-left" key-press="displayButtonLeftKeyClick(keyPressed)"></display-button-panel>
             <atm-display></atm-display>
-            <div class="atm-numeric-buttons-right">
-                <div class="atm-numeric-button">
-                    <input type="button" id="displayButton5">
-                </div>
-                <div class="atm-numeric-button">
-                    <input type="button" id="displayButton6">
-                </div>
-                <div class="atm-numeric-button">
-                    <input type="button" id="displayButton7">
-                </div>
-                <div class="atm-numeric-button">
-                    <input type="button" id="displayButton8">
-                </div>
-            </div>
+            <display-button-panel class="atm-numeric-buttons-right" key-press="displayButtonRightKeyClick(keyPressed)"></display-button-panel>
         </div>
         <div class="right-panel">
             <atm-slot class="receipt-dispenser" header="'RECEIPT'"></atm-slot>
