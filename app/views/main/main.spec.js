@@ -30,15 +30,19 @@ describe('myApp.main module', function () {
 
         function initMocksAndFakes() {
             mockAtmMachineService = jasmine.createSpyObj('atmMachineService', [
+                'cardInserted',
+                'printerQueue',
+                'registerDisplayChangeCallback',
+                'registerShowCustomerAtmCardCallback',
                 'atmCardInserted',
                 'submitPin',
                 'cancel',
                 'startWithdrawal',
                 'showAccountBalance',
                 'printAccountBalance',
-                'registerShowCustomerAtmCardCallback'
+                'changeDisplay',
+                'isValidAtmCardInserted'
             ]);
-
         }
     });
 });

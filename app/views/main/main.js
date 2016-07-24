@@ -23,7 +23,6 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
         });
 
         ctrl.processCardInserted = function (data, event) {
-            $log.log('drop works');
             var insertedCard = data['json/custom-object'];
             atmMachineService.atmCardInserted(insertedCard);
         };
