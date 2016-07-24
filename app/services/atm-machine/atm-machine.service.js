@@ -29,54 +29,55 @@ factory('atmMachineService', ['customerAccountApiService', '$log', function (cus
         }
     };
 
-
-
-    service.keysPressed = 0;
-    service.pinEntered = 0;
-    service.correctPinEntered = false;
-    service.numberPadKeyClick = function (keyPressed) {
-        $log.log('The ' + keyPressed + ' key was pressed');
-        if (!service.isValidAtmCardInserted()) return;
-        if (keyPressed === 'ENTER') {
-            service.submitPin(service.pinEntered);
-        } else if (keyPressed === 'CLEAR') {
-            service.pinEntered = '';
-            service.keysPressed = 0;
-            service.changeDisplay('promptForPin');
-        } else if (keyPressed === 'CANCEL') {
-            service.pinEntered = '';
-            service.keysPressed = 0;
-            service.cancel();
-        } else {
-            service.processNumberKey(keyPressed);
+    var numberPad = (function() {
+        var pad = {};
+        var keysPressed = 0;
+        var pinEntered = 0;
+        var correctPinEntered = false;
+        pad.keyClick = function (keyPressed) {
+            $log.log('The ' + keyPressed + ' key was pressed');
+            if (!service.isValidAtmCardInserted()) return;
+            if (keyPressed === 'ENTER') {
+                service.submitPin(pinEntered);
+            } else if (keyPressed === 'CLEAR') {
+                pinEntered = '';
+                keysPressed = 0;
+                service.changeDisplay('promptForPin');
+            } else if (keyPressed === 'CANCEL') {
+                pinEntered = '';
+                keysPressed = 0;
+                service.cancel();
+            } else {
+                processNumberKey(keyPressed);
+            }
+        };
+        function processNumberKey (keyPressed) {
+            switch (keysPressed) {
+                case 0:
+                    pinEntered = keyPressed;
+                    service.changeDisplay('enterPinNumber-1Character');
+                    break;
+                case 1:
+                    pinEntered = pinEntered + keyPressed;
+                    service.changeDisplay('enterPinNumber-2Characters');
+                    break;
+                case 2:
+                    pinEntered = pinEntered + keyPressed;
+                    service.changeDisplay('enterPinNumber-3Characters');
+                    break;
+                case 3:
+                    pinEntered = pinEntered + keyPressed;
+                    service.changeDisplay('enterPinNumber-Complete');
+                    correctPinEntered = (pinEntered === service.cardInserted.PIN);
+                    break;
+            }
+            $log.log('PIN entered at present: ' + pinEntered);
+            keysPressed++;
         }
-    };
-
-    service.processNumberKey = function (keyPressed) {
-        switch (service.keysPressed) {
-            case 0:
-                service.pinEntered = keyPressed;
-                service.changeDisplay('enterPinNumber-1Character');
-                break;
-            case 1:
-                service.pinEntered = service.pinEntered + keyPressed;
-                service.changeDisplay('enterPinNumber-2Characters');
-                break;
-            case 2:
-                service.pinEntered = service.pinEntered + keyPressed;
-                service.changeDisplay('enterPinNumber-3Characters');
-                break;
-            case 3:
-                service.pinEntered = service.pinEntered + keyPressed;
-                service.changeDisplay('enterPinNumber-Complete');
-                service.correctPinEntered = (service.pinEntered === service.cardInserted.PIN);
-                break;
-        }
-        $log.log('PIN entered at present: ' + service.pinEntered);
-        service.keysPressed++;
-    };
-
-
+        return pad;
+    })();
+    
+    service.numberPadKeyClick = numberPad.keyClick;
     
     service.submitPin = function (pinNumber) {
         if (pinNumber === service.cardInserted.pin) {

@@ -35,6 +35,7 @@ describe('myApp.main module', function () {
                 'registerDisplayChangeCallback',
                 'registerShowCustomerAtmCardCallback',
                 'atmCardInserted',
+                'numberPadKeyClick',
                 'submitPin',
                 'cancel',
                 'startWithdrawal',

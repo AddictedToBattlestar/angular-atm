@@ -36,5 +36,4 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
         };
 
         ctrl.numberPadKeyClick = atmMachineService.numberPadKeyClick;
-
     }]);
