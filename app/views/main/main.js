@@ -27,27 +27,6 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
             atmMachineService.atmCardInserted(insertedCard);
         };
 
-        ctrl.keysPressed = 0;
-        ctrl.pinEntered = 0;
-        ctrl.correctPinEntered = false;
-        ctrl.numberPadKeyClick = function (keyPressed) {
-            $log.log('The ' + keyPressed + ' key was pressed');
-            if (!atmMachineService.isValidAtmCardInserted()) return;
-            if (keyPressed === 'ENTER') {
-                ctrl.enterButtonClick();
-            } else if (keyPressed === 'CLEAR') {
-                ctrl.pinEntered = '';
-                ctrl.keysPressed = 0;
-                atmMachineService.changeDisplay('promptForPin');
-            } else if (keyPressed === 'CANCEL') {
-                ctrl.pinEntered = '';
-                ctrl.keysPressed = 0;
-                atmMachineService.cancel();
-            } else {
-                ctrl.processNumberKey(keyPressed);
-            }
-        };
-
         ctrl.displayButtonLeftKeyClick = function (keyPressed) {
             $log.log('The ' + keyPressed + ' left display button was pressed');
         };
@@ -56,31 +35,6 @@ angular.module('myApp.main', ['ngRoute', 'draganddrop', 'myApp.atmMachine'])
             $log.log('The ' + keyPressed + ' right display button was pressed');
         };
 
-        ctrl.processNumberKey = function (keyPressed) {
-            switch (ctrl.keysPressed) {
-                case 0:
-                    ctrl.pinEntered = keyPressed;
-                    atmMachineService.changeDisplay('enterPinNumber-1Character');
-                    break;
-                case 1:
-                    ctrl.pinEntered = ctrl.pinEntered + keyPressed;
-                    atmMachineService.changeDisplay('enterPinNumber-2Characters');
-                    break;
-                case 2:
-                    ctrl.pinEntered = ctrl.pinEntered + keyPressed;
-                    atmMachineService.changeDisplay('enterPinNumber-3Characters');
-                    break;
-                case 3:
-                    ctrl.pinEntered = ctrl.pinEntered + keyPressed;
-                    atmMachineService.changeDisplay('enterPinNumber-Complete');
-                    ctrl.correctPinEntered = (ctrl.pinEntered === atmMachineService.cardInserted.PIN);
-                    break;
-            }
-            $log.log('PIN entered at present: ' + ctrl.pinEntered);
-            ctrl.keysPressed++;
-        };
+        ctrl.numberPadKeyClick = atmMachineService.numberPadKeyClick;
 
-        ctrl.enterButtonClick = function () {
-            atmMachineService.submitPin(ctrl.pinEntered);
-        };
     }]);
