@@ -1,0 +1,173 @@
+@import "less/app";
+
+.flexbox {
+  .atm-panel {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    .left-panel, .right-panel {
+      margin-left: 2em;
+    }
+    .left-panel {
+      order: 1;
+      flex-basis: 40em;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      align-items: flex-start;
+      margin-top: 1em;
+      .atm-numeric-buttons-left, atm-display, .atm-numeric-buttons-right {
+        height: 18em;
+      }
+      .atm-numeric-buttons-left, .atm-numeric-buttons-right {
+        .atm-numeric-button {
+          margin-bottom: 1em;
+        }
+      }
+      .atm-numeric-buttons-left {
+        order: 1;
+        flex-basis: 4.5em;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: flex-end;
+        align-items: center;
+      }
+      atm-display {
+        order: 2;
+        flex-basis: 30em;
+
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: flex-end;
+        align-items: flex-start;
+        .atm-display-line {
+          margin-top: 0.5em;
+          margin-left: 0.1em;
+          height: 1.2em;
+          width: 100%;
+          text-align: center;
+          span {
+            white-space: pre;
+            font-family: "Courier New", Courier, monospace;
+            font-weight: bold;
+          }
+        }
+      }
+      .atm-numeric-buttons-right {
+        order: 3;
+        flex-basis: 4.5em;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: flex-end;
+        align-items: center;
+      }
+    }
+    .right-panel {
+      order: 2;
+      flex-basis: 20em;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top: 1em;
+      margin-right: 1em;
+      .receipt-dispenser, .card-slot {
+        width: 100%;
+      }
+      .receipt-dispenser {
+        order: 1;
+        flex-basis: 3em;
+        margin-bottom: 1em;
+      }
+      .card-slot {
+        order: 2;
+        flex-basis: 8.4em;
+        div:nth-child(2) {
+        }
+        #insert-atm-card-label {
+          display: block;
+          margin: auto;
+        }
+      }
+    }
+  }
+
+  .atm-panel:nth-child(2) {
+    padding-bottom: 1em;
+    .left-panel {
+      .cash-dispenser {
+        height: 3em;
+        flex-basis: 20em;
+      }
+    }
+    .right-panel {
+      .deposit-slot {
+        width: 100%;
+        flex-basis: 3em;
+      }
+    }
+   }
+
+  .atm-panel:nth-child(3) {
+    .keypad {
+      display: flex;
+      flex-flow: row nowrap;
+      margin-bottom: 1em;
+      .number-pad {
+        display:flex;
+        flex-flow: column nowrap;
+        .number-pad-row {
+          display: flex;
+          flex-flow: row nowrap;
+        }
+      }
+    }
+  }
+
+  .atm-panel:nth-child(3), .atm-panel:nth-child(4) {
+    border-top: 1px solid black;
+  }
+
+  .atm-numeric-button {
+    height: 2.2em;
+    width: 2.2em;
+    input[type="button"] {
+      display: block;
+      margin: 0.1em auto 0;
+      height: 2em;
+      width: 2em;
+    }
+  }
+
+  .atm-button {
+    height: 2.2em;
+    width: 5em;
+    input[type="button"] {
+      display: block;
+      margin: 0.1em auto 0;
+      height: 2em;
+      width: 4.8em;
+    }
+  }
+
+  .atm-slot {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    div:nth-child(1) {
+      text-align: center;
+    }
+    div:nth-child(2) {
+      flex-basis: 100%;
+      position: relative;
+      div {
+        height: 50%;
+        width: 95%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+      }
+    }
+  }
+}
