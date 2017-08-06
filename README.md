@@ -1,3 +1,11 @@
+This repo is was me exploring Angular 1 components and flexbox.
+
+Angular 1 components:
+https://docs.angularjs.org/guide/component
+
+Flexbox:
+https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+
 # angular-seed — the seed for AngularJS apps
 
 This project is an application skeleton for a typical [AngularJS](http://angularjs.org/) web app.
